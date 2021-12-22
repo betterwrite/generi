@@ -1,9 +1,17 @@
 import { success, error } from './console';
 import { Commit, GitNewTagOptions, GitNewTag } from './types';
-import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
+import {
+	getRoot,
+	setFile,
+	getFile,
+	getPackageRoot,
+	getLernaRoot,
+	getConfigRoot,
+} from './utils';
 import fs from 'fs';
 import path from 'path';
 import execa from 'execa';
+import { getGeneriConfig } from './generi';
 
 export const isGit = () => {
 	return fs.existsSync(path.resolve(getRoot(), '.git'));
@@ -225,6 +233,14 @@ export const setCommit = (message: string, log = true) => {
 	execa.sync('git', ['commit', '-m', message]);
 
 	if (log) success('Commit With Message: ' + message);
+};
+
+export const pushCommits = () => {
+	if (!getGeneriConfig().push) return;
+
+	execa.sync('git', ['push']);
+
+	execa.sync('git', ['push', '--tags']);
 };
 
 export const isValidTag = (tag: GitNewTag) => {

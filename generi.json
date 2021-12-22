@@ -1,7 +1,8 @@
 {
   "silent": false,
-  "commits": "none",
+  "commits": "conventional-commits",
   "tag": true,
   "version": true,
-  "monorepo": false
+  "monorepo": false,
+  "push": true
 }

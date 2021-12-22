@@ -1,6 +1,14 @@
 import { createChangelog } from '../changelog';
 import { GitNewTag, LogOptions } from '../types';
-import { nextTag, lastTag, setVersion, setTag, newCommits, isValidTag } from '../git';
+import {
+	nextTag,
+	lastTag,
+	setVersion,
+	setTag,
+	newCommits,
+	isValidTag,
+	pushCommits,
+} from '../git';
 import { success, error, getHeader } from '../console';
 import { isChangesForCommit, existsConfig } from '../utils';
 import { getGeneriConfig } from '../generi';
@@ -55,4 +63,6 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 	createChangelog(!config.version || config.monorepo ? lastTag() : next);
 
 	if (config.tag) setTag(next);
+
+	pushCommits();
 };

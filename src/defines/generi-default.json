@@ -3,5 +3,6 @@
 	"commits": "none",
 	"tag": true,
 	"version": true,
-	"monorepo": false
+	"monorepo": false,
+	"push": false
 }

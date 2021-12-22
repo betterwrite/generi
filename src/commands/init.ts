@@ -1,13 +1,5 @@
 import { getHeader, error } from '../console';
-import {
-	isGit,
-	setVersion,
-	setTag,
-	initGit,
-	lastTag,
-	setCommit,
-	isCleanChanges,
-} from '../git';
+import { isGit, setVersion, setTag, initGit, setCommit } from '../git';
 import { createChangelog } from '../changelog';
 import { setGeneriConfig, getGeneriConfig } from '../generi';
 import * as log from './log';
