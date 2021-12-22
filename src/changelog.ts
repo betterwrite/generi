@@ -1,5 +1,5 @@
 import { success } from './console';
-import { commits, isTagCommit, setCommit, lastTag } from './git';
+import { commits, isTagCommit, setCommit, lastTag, getTagCommit } from './git';
 import { Commit } from './types';
 import { setChangelog } from './utils';
 import { getGeneriConfig } from './generi';
@@ -10,9 +10,11 @@ const getChangelogHeader = () => {
 };
 
 const setSubHeader = (commit: Commit) => {
-	const v = commit.summary.replace(/'/gi, '');
+	const v = isTagCommit(commit)
+		? getTagCommit(commit)
+		: commit.summary.replace(/'/gi, '');
 
-	return '\n### ' + `[${v}]` + '\n\n';
+	return '\n### ' + v + '\n\n';
 };
 
 const setBasic = (commit: Commit) => {
