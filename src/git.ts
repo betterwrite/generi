@@ -254,11 +254,11 @@ export const revertAll = () => {
 
 	const tag = lastTag();
 
-	execa.sync('git', ['reset', '--soft', 'HEAD~1']);
+	execa.sync('git', ['reset', 'HEAD']);
 
 	execa.sync('git', ['tag', '--delete', tag]);
 
-	execa.sync('git', ['restore', '.']);
+	execa.sync('git', ['checkout', '.']);
 
 	success(`Success in revert ${tag} tag!`);
 };
