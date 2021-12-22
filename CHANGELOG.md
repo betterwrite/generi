@@ -4,4 +4,4 @@ Changelog was created by [Generi](https://github.com/Novout/generi). Any questio
 
 ### [v0.1.0]
 
-* chore(changelog): initial content [b0d2d44]
+* chore(changelog): initial content [ebc1d2d]
