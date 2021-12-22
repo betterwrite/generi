@@ -1,25 +1,26 @@
 import gradient from 'gradient-string';
 import { isSilent } from './generi';
+import consola from 'consola';
 
 export const getHeader = (command: string) => {
 	if (isSilent()) return;
 
 	const title = `Generi - A CHANGELOG.md Generator | ${command}`;
-	console.log(gradient.vice(title));
-	console.log(gradient.vice('■'.repeat(title.length)));
-	console.log('\n');
+	consola.log(gradient.vice(title));
+	consola.log(gradient.vice('■'.repeat(title.length)));
+	consola.log('\n');
 };
 
 export const success = (content: string) => {
 	if (isSilent()) return;
 
-	console.log(gradient.vice('- ✅  ' + content));
+	consola.success(gradient.vice(content));
 };
 
 export const error = (content: string) => {
 	if (isSilent()) process.exit(1);
 
-	console.log(gradient.vice('- ❌  ' + content));
+	consola.fatal(gradient.vice(content));
 
 	process.exit(1);
 };
@@ -27,11 +28,11 @@ export const error = (content: string) => {
 export const warning = (content: string) => {
 	if (isSilent()) return;
 
-	console.log(gradient.vice('- ✋  ' + content));
+	consola.warn(gradient.vice(content));
 };
 
 export const info = (content: string) => {
 	if (isSilent()) return;
 
-	console.log(gradient.vice('- 🚨  ' + content));
+	consola.info(gradient.vice(content));
 };

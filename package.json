@@ -41,6 +41,7 @@
     "generi": "build/index.js"
   },
   "dependencies": {
+    "consola": "^2.15.3",
     "execa": "^5.0.0",
     "gradient-string": "^2.0.0",
     "sade": "^1.7.4"
