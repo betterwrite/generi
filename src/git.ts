@@ -252,11 +252,15 @@ export const revertAll = () => {
 
 	isChangesForCommit(isGit());
 
+	const tag = lastTag();
+
 	execa.sync('git', ['reset', '--soft', 'HEAD~1']);
 
-	execa.sync('git', ['tag', '--delete', lastTag()]);
+	execa.sync('git', ['tag', '--delete', tag]);
 
 	execa.sync('git', ['restore', '.']);
+
+	success(`Success in revert ${tag} tag!`);
 };
 
 export const isValidTag = (tag: GitNewTag) => {
