@@ -239,6 +239,8 @@ export const pushCommits = () => {
 	execa.sync('git', ['push']);
 
 	execa.sync('git', ['push', '--tags']);
+
+  success('Success in Push!');
 };
 
 export const revertAll = () => {
