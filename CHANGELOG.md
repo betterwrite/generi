@@ -2,6 +2,10 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.2.3
+
+* **fix(config):** publish correct commands [3091496]
+
 ### v0.2.2
 
 * **feat(config):** publish command [858d46e]
