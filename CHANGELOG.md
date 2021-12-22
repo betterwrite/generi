@@ -2,6 +2,12 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.1.7
+
+* **fix(log):** set tag in default setups [9aca334]
+* **feat(console):** info emits [e42ca46]
+* **fix(monorepo):** lerna get actually version [0bacf98]
+
 ### v0.1.6
 
 * **fix:** typo [32792af]
