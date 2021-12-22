@@ -17,8 +17,6 @@ A Simple CHANGELOG.md Generator for JavaScript / TypeScript Projects.
 <br>
 <br>
 
-![Build Status](https://img.shields.io/github/workflow/status/Novout/generi/Tests)
-
 ### Install
 
 `npm i -g generi` `yarn global add generi`
