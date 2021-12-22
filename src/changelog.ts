@@ -67,11 +67,11 @@ export const setActuallyTag = (tag: string) => {
 	});
 };
 
-export const createChangelog = (tag: string, init: boolean = false) => {
+export const createChangelog = (tag: string) => {
 	const config = getGeneriConfig();
 	let changelog = getChangelogHeader();
 
-	if (config.tag && !config.monorepo && !init) changelog += setActuallyTag(tag);
+	if (config.tag) changelog += setActuallyTag(tag);
 
 	commits().forEach((commit) => {
 		if (isTagCommit(commit)) {
@@ -89,9 +89,7 @@ export const createChangelog = (tag: string, init: boolean = false) => {
 
 	setChangelog(changelog);
 
-	setCommit(
-		config.tag && !config.monorepo ? tag : 'chore(generi): generate changelog.md'
-	);
+	setCommit(config.tag ? tag : 'chore(generi): generate changelog.md');
 
 	success('Generate CHANGELOG.md');
 };

@@ -33,16 +33,7 @@ To generate a release, use `generi log <release>`
 
 ### Monorepo
 
-Monorepo versions may depend on external tools. Given this, `monorepo: true` just generates the CHANGELOG.md without changing the versioning
-
-`generi.json`
-```json
-"monorepo": true
-```
-
-##### Example with lerna
-
-`lerna version patch && generi log patch`
+Monorepo versions may depend on external tools. Given this, Generi supports lerna workspaces, using the command `lerna version` before creating the changelog. In other setups, we recommend disabling the `tag` and `version` options.
 
 ### generi.json
 
@@ -63,10 +54,6 @@ Release a git tag
 ##### `version` Default: `true`
 
 Insert new version in package.json
-
-##### `monorepo` Default: `false`
-
-Monorepo versions may depend on external tools. Given this, `monorepo: true` just generates the CHANGELOG.md without changing the versioning. This option ignores `tag` and `version` options
 
 ##### `push` Default: `false`
 

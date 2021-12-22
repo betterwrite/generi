@@ -27,7 +27,7 @@ export const setup = () => {
 		return;
 	}
 
-	setVersion('v0.1.0');
+	setVersion('v0.1.0', 'minor');
 
 	createChangelog('v0.1.0');
 

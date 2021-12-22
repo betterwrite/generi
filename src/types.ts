@@ -37,9 +37,6 @@ export interface GeneriOptions {
 	/* release a version in package.json */
 	version: boolean;
 
-	/* release a version in package.json */
-	monorepo: boolean;
-
 	/* push commits in actually branch after log */
 	push: boolean;
 }

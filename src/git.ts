@@ -137,21 +137,14 @@ export const getTagCommit = (commit: Commit) => {
 	return commit.refName.filter((ref) => ref.includes('tag'))[0].replace('tag: ', '');
 };
 
-export const setVersion = (target: string) => {
+export const setVersion = (target: string, tag: GitNewTag) => {
 	let lerna = getFile(getLernaRoot());
 
 	// monorepo with lerna
 	if (lerna) {
-		!lerna.version
-			? (lerna = {
-					version: target,
-					...lerna,
-			  })
-			: (lerna.version = target);
+		execa.sync('lerna', ['version', tag]);
 
-		setFile('lerna.json', lerna);
-
-		success('Set ' + target + ' Version In <lerna.json>');
+		success('Set ' + target + ' Version In Lerna Monorepos!');
 	} else {
 		let pkg = getFile(getPackageRoot());
 
@@ -254,7 +247,7 @@ export const revertAll = () => {
 
 	const tag = lastTag();
 
-	execa.sync('git', ['reset', 'HEAD']);
+	execa.sync('git', ['reset', 'HEAD~1']);
 
 	execa.sync('git', ['tag', '--delete', tag]);
 
