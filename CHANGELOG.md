@@ -2,6 +2,11 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.2.1
+
+* **fix(lerna):** set version in empty command call [78d8aeb]
+* **fix(revert):** verify remote [4dcd235]
+
 ### v0.2.0
 
 * **chore(cli):** alias in commands [f90c999]
