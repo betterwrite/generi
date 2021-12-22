@@ -12,8 +12,9 @@ import * as revert from './commands/revert';
 	const prog = sade('generi');
 
 	prog
-		.command('log <tag>')
-		.describe('Generate Changelog')
+		.command('log <tag>', 'Generate Changelog', {
+			alias: ['l', 'olg'],
+		})
 		.example('log patch')
 		.example('log minor')
 		.example('log major')
@@ -22,16 +23,18 @@ import * as revert from './commands/revert';
 		});
 
 	prog
-		.command('init')
-		.describe('Start Changelog')
+		.command('init', 'Start Changelog', {
+			alias: ['i', 'inti'],
+		})
 		.example('init')
 		.action(() => {
 			init.setup();
 		});
 
 	prog
-		.command('revert')
-		.describe('Revert <generi log> command')
+		.command('revert', 'Revert <generi log> Command', {
+			alias: ['r', 'rev', 'revetr'],
+		})
 		.example('revert')
 		.action(() => {
 			revert.setup();
