@@ -1,0 +1,41 @@
+export interface Commit {
+	sha: string;
+	refName: string[];
+	summary: string;
+	date: string;
+}
+
+export interface ConventionalCommit {
+  raw: string
+  tag: string
+  type: string
+}
+
+export type GitNewTag = 'patch' | 'minor' | 'major';
+
+export interface GitNewTagOptions {
+	last: string;
+	tag: GitNewTag;
+	unreleased?: 'alpha' | 'beta';
+}
+
+export interface LogOptions {
+	header: boolean;
+}
+
+export interface GeneriOptions {
+	/* Do not emit any message in console. */
+	silent: boolean;
+
+	/* default commit messages */
+	commits: string;
+
+	/* release a git tag */
+	tag: boolean;
+
+	/* release a version in package.json */
+	version: boolean;
+
+	/* release a version in package.json */
+	monorepo: boolean;
+}
