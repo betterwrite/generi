@@ -1,4 +1,4 @@
-import { success, error } from './console';
+import { success, error, info } from './console';
 import { Commit, GitNewTagOptions, GitNewTag } from './types';
 import {
 	getRoot,
@@ -142,6 +142,8 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 
 	// monorepo with lerna
 	if (lerna) {
+		info(`Executing lerna version ${tag} command...`);
+
 		execa.sync('lerna', ['version', tag]);
 
 		success('Set ' + target + ' Version In Lerna Monorepos!');
@@ -232,18 +234,22 @@ export const setCommit = (message: string, log = true) => {
 export const pushCommits = () => {
 	if (!getGeneriConfig().push) return;
 
+	info(`Pushing...`);
+
 	execa.sync('git', ['push']);
 
 	execa.sync('git', ['push', '--tags']);
 };
 
 export const revertAll = () => {
-	if (!isGit()) {
-		error('This command just rolls back changes in git.');
-		return;
-	}
+	if (!isGit()) error('This command just rolls back changes in git.');
 
 	isChangesForCommit(isGit());
+
+	if (verifyExistentRemote())
+		error(
+			'No remotes were found! Use git remote add origin <github|gitlab|gitbucket repository> instead.'
+		);
 
 	const tag = lastTag();
 
@@ -254,6 +260,16 @@ export const revertAll = () => {
 	execa.sync('git', ['checkout', '.']);
 
 	success(`Success in revert ${tag} tag!`);
+};
+
+export const verifyExistentRemote = () => {
+	try {
+		execa.sync('git', ['remote', '-v']);
+	} catch (e) {
+		return false;
+	}
+
+	return true;
 };
 
 export const isValidTag = (tag: GitNewTag) => {

@@ -29,3 +29,9 @@ export const warning = (content: string) => {
 
 	console.log(gradient.vice('- ✋  ' + content));
 };
+
+export const info = (content: string) => {
+	if (isSilent()) return;
+
+	console.log(gradient.vice('- 🚨  ' + content));
+};
