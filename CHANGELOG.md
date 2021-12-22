@@ -2,6 +2,11 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.1.6
+
+* **fix:** typo [32792af]
+* **feat:** invokate lerna command in monorepo [b5b0a59]
+
 ### v0.1.5
 
 * **fix(init):** generate changelog in existent repo [22db8a4]
