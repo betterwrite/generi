@@ -11,7 +11,6 @@ A Simple CHANGELOG.md Generator for JavaScript / TypeScript Projects.
 <p align="center">
   <a href="https://www.npmjs.com/package/generi"><img src="https://img.shields.io/npm/v/generi?style=for-the-badge&color=a0a3cf&label="></a>
   <a href="https://www.npmjs.com/package/generi"><img src="https://img.shields.io/github/workflow/status/Novout/generi/Tests?style=for-the-badge&color=5BBB74&"></a>
-  <a href="https://www.npmjs.com/package/generi"><img src="https://img.shields.io/github/license/Novout/generi?style=for-the-badge&color=a0a3cf&label="></a>
 <p>
 
 <br>
@@ -82,3 +81,7 @@ Init generi configurations, and, if necessary, a git project
 #### `generi log <patch|minor|major>`
 
 Generate CHANGELOG.md and the necessary contents
+
+#### `generi revert`
+
+Revert `generi log` last command

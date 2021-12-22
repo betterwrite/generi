@@ -12,6 +12,7 @@ import fs from 'fs';
 import path from 'path';
 import execa from 'execa';
 import { getGeneriConfig } from './generi';
+import { isChangesForCommit } from './utils';
 
 export const isGit = () => {
 	return fs.existsSync(path.resolve(getRoot(), '.git'));
@@ -241,6 +242,21 @@ export const pushCommits = () => {
 	execa.sync('git', ['push']);
 
 	execa.sync('git', ['push', '--tags']);
+};
+
+export const revertAll = () => {
+	if (!isGit()) {
+		error('This command just rolls back changes in git.');
+		return;
+	}
+
+	isChangesForCommit(isGit());
+
+	execa.sync('git', ['reset', '--soft', 'HEAD~1']);
+
+	execa.sync('git', ['tag', '--delete', lastTag()]);
+
+	execa.sync('git', ['restore', '.']);
 };
 
 export const isValidTag = (tag: GitNewTag) => {
