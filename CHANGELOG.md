@@ -2,6 +2,11 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.1.5
+
+* **fix(init):** generate changelog in existent repo [22db8a4]
+* **fix(revert):** checkout delete unstaged changes [994386b]
+
 ### v0.1.4
 
 * **fix(init):** log option for init sets [b08cdf1]
