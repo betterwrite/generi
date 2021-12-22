@@ -54,13 +54,13 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 		return;
 	}
 
-	if (config.version && !options.init) {
+	if (config.version && !config.monorepo) {
 		success(`${lastTag()} to ${next} (${tag.toUpperCase()})`);
 
 		setVersion(`${next}`);
 	}
 
-	createChangelog(!config.version || config.monorepo || options.init ? lastTag() : next);
+	createChangelog(!config.version || config.monorepo ? lastTag() : next, options.init);
 
 	if (config.tag && !options.init) setTag(next);
 
