@@ -61,7 +61,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 	if (config.version) {
 		success(`${last} to ${next} (${tag.toUpperCase()})`);
 
-		setVersion(`${next}`, tag);
+		setVersion(next, tag);
 	}
 
 	createChangelog(!config.version ? lastTag() : next);

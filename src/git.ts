@@ -146,6 +146,14 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 
 		execa.sync('lerna', ['version', tag]);
 
+		//if lerna version has no previous workspace changes, it does not execute any command to change the version.
+		if (JSON.parse(lerna).version === JSON.parse(getFile(getLernaRoot())).version) {
+			const _lerna = JSON.parse(lerna);
+			_lerna.version = target;
+
+			setFile(getLernaRoot(), _lerna);
+		}
+
 		success('Set ' + target + ' Version In Lerna Monorepos!');
 	} else {
 		let pkg = getFile(getPackageRoot());
