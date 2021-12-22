@@ -1,13 +1,6 @@
 import { createChangelog } from '../changelog';
 import { GitNewTag, LogOptions } from '../types';
-import {
-	nextTag,
-	lastTag,
-	setVersion,
-	setTag,
-	newCommits,
-	isValidTag,
-} from '../git';
+import { nextTag, lastTag, setVersion, setTag, newCommits, isValidTag } from '../git';
 import { success, error, getHeader } from '../console';
 import { existsGeneri, isChangesForCommit } from '../utils';
 import { getGeneriConfig } from '../generi';

@@ -87,7 +87,9 @@ export const createChangelog = (tag: string) => {
 
 	setChangelog(changelog);
 
-	setCommit(config.tag && !config.monorepo ? tag : 'chore(generi): generate changelog.md');
+	setCommit(
+		config.tag && !config.monorepo ? tag : 'chore(generi): generate changelog.md'
+	);
 
 	success('Generate CHANGELOG.md');
 };

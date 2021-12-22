@@ -6,9 +6,9 @@ export interface Commit {
 }
 
 export interface ConventionalCommit {
-  raw: string
-  tag: string
-  type: string
+	raw: string;
+	tag: string;
+	type: string;
 }
 
 export type GitNewTag = 'patch' | 'minor' | 'major';

@@ -34,8 +34,8 @@ To generate a release, use `generi log <release>`
 
 Monorepo versions may depend on external tools. Given this, `monorepo: true` just generates the CHANGELOG.md without changing the versioning.
 
+`generi.json`
 ```json
-// generi.json
 "monorepo": true
 ```
 

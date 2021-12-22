@@ -30,7 +30,7 @@ export const commits = (): Commit[] => {
 	return execa
 		.sync('git', ['log', '--oneline', '--pretty=hash<%h> ref<%D> message<%s> date<%cd>'])
 		.stdout.split('\n')
-		.map(parseLogMessage)
+		.map(parseLogMessage);
 };
 
 export const lastTag = (): string => {
@@ -125,8 +125,8 @@ export const isTagCommit = (commit: Commit) => {
 };
 
 export const getTagCommit = (commit: Commit) => {
-  return commit.refName.filter((ref) => ref.includes('tag'))[0].replace('tag: ', '')
-}
+	return commit.refName.filter((ref) => ref.includes('tag'))[0].replace('tag: ', '');
+};
 
 export const setVersion = (target: string) => {
 	let lerna = getFile(getLernaRoot());
