@@ -5,7 +5,7 @@ export const publish = (target: string) => {
 	info('Publishing...');
 
 	try {
-		execa.sync('npm', ['publish']);
+		execa.sync('npm', ['publish', '--access', 'public', '--tag', target]);
 	} catch (e) {
 		error('Unable to publish the package in NPM!');
 	}
