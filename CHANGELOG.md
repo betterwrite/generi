@@ -2,6 +2,11 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.2.5
+
+* **chore(cli):** standard console to consola [aa836e8]
+* **chore(deps):** remove picocolors [feda0d5]
+
 ### v0.2.4
 
 * **fix(lerna):** normalize lerna version [7dac4c7]
