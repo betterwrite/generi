@@ -138,6 +138,7 @@ export const getTagCommit = (commit: Commit) => {
 };
 
 export const setVersion = (target: string, tag: GitNewTag) => {
+	const normalize = target.substring(1);
 	let lerna = getFile(getLernaRoot());
 
 	// monorepo with lerna
@@ -149,7 +150,7 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 		//if lerna version has no previous workspace changes, it does not execute any command to change the version.
 		if (JSON.parse(lerna).version === JSON.parse(getFile(getLernaRoot())).version) {
 			const _lerna = JSON.parse(lerna);
-			_lerna.version = target;
+			_lerna.version = normalize;
 
 			setFile(getLernaRoot(), _lerna);
 		}
@@ -164,8 +165,6 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 		}
 
 		pkg = JSON.parse(pkg);
-
-		const normalize = target.substring(1);
 
 		if (pkg.version) {
 			pkg.version = normalize;
