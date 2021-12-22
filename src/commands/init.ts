@@ -22,7 +22,7 @@ export const setup = () => {
 	if (git) {
 		setCommit('chore: generate generi.json');
 
-		log.setup('patch', { header: false });
+		log.setup('patch', { header: false, init: true });
 
 		return;
 	}

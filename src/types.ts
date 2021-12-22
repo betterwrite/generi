@@ -21,6 +21,7 @@ export interface GitNewTagOptions {
 
 export interface LogOptions {
 	header: boolean;
+	init?: boolean;
 }
 
 export interface GeneriOptions {
