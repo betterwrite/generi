@@ -64,7 +64,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	createChangelog(!config.version ? lastTag() : next);
 
-	if (config.tag && !options.init) setTag(next);
+	if (config.tag && (!options.init || !lerna)) setTag(next);
 
 	pushCommits();
 };
