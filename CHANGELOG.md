@@ -2,6 +2,12 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.2.0
+
+* **chore(cli):** alias in commands [f90c999]
+* **fix(lerna):** get correct version [904bb75]
+* **feat(console):** succes in push contents [0533b27]
+
 ### v0.1.7
 
 * **fix(log):** set tag in default setups [9aca334]
