@@ -10,7 +10,7 @@ import {
 	pushCommits,
 } from '../git';
 import { success, error, getHeader } from '../console';
-import { isChangesForCommit, existsConfig } from '../utils';
+import { isChangesForCommit, existsConfig, getFile, getLernaRoot } from '../utils';
 import { getGeneriConfig } from '../generi';
 import { isGit } from '../git';
 
@@ -44,8 +44,10 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	if (!validateLog(tag)) return;
 
+	const lerna = getFile(getLernaRoot());
+
 	const next = nextTag({
-		last: lastTag(),
+		last: lerna ? 'v' + JSON.parse(lerna).version : lastTag(),
 		tag,
 	});
 
