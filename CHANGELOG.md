@@ -2,6 +2,10 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### [v0.1.2]
+
+* fix(log): exists root config [ec0cfc1]
+
 ### [v0.1.1]
 
 * chore: remove demo [a6b771d]
