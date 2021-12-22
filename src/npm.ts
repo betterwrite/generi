@@ -1,7 +1,10 @@
 import execa from 'execa';
 import { info, success, error } from './console';
+import { getGeneriConfig } from './generi';
 
 export const publish = (target: string) => {
+	if (!getGeneriConfig().publish) return;
+
 	info('Publishing...');
 
 	try {
