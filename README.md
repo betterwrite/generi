@@ -16,20 +16,35 @@ A Simple CHANGELOG.md Generator for JavaScript / TypeScript Projects.
 <br>
 <br>
 
+- ✅ Easy CLI
+- ✅ Monorepo support (with [Lerna](https://lerna.js.org/))
+
 ### Install
 
 `npm i -g generi` `yarn global add generi`
-### Basic Usage
 
-To initialize generi, use `generi init`
+### Usage
 
-To generate a release, use `generi log <release>`
+#### `generi init`
+
+Init `generi.json` configuration, and, if necessary, a git project
+<br>
+
+#### `generi log <patch|minor|major>`
+
+Generate CHANGELOG.md and the necessary contents
 
 `generi log patch` 0.1.0 >> 0.1.1
 
 `generi log minor` 0.1.0 >> 0.2.0
 
 `generi log major` 0.1.0 >> 1.0.0
+<br>
+
+#### `generi revert`
+
+Revert `generi log` last command
+<br>
 
 ### Monorepo
 
@@ -58,17 +73,3 @@ Insert new version in package.json
 ##### `push` Default: `false`
 
 Push commits in actually branch after log
-
-### Commands
-
-#### `generi init`
-
-Init generi configurations, and, if necessary, a git project
-
-#### `generi log <patch|minor|major>`
-
-Generate CHANGELOG.md and the necessary contents
-
-#### `generi revert`
-
-Revert `generi log` last command

@@ -46,8 +46,10 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	const lerna = getFile(getLernaRoot());
 
+	const last = lerna ? 'v' + JSON.parse(lerna).version : lastTag();
+
 	const next = nextTag({
-		last: lerna ? 'v' + JSON.parse(lerna).version : lastTag(),
+		last,
 		tag,
 	});
 
@@ -57,7 +59,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 	}
 
 	if (config.version) {
-		success(`${lastTag()} to ${next} (${tag.toUpperCase()})`);
+		success(`${last} to ${next} (${tag.toUpperCase()})`);
 
 		setVersion(`${next}`, tag);
 	}
