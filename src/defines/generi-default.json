@@ -3,5 +3,6 @@
 	"commits": "none",
 	"tag": true,
 	"version": true,
-	"push": false
+	"push": false,
+	"publish": false
 }

@@ -13,6 +13,7 @@ import { success, error, getHeader } from '../console';
 import { isChangesForCommit, existsConfig, getFile, getLernaRoot } from '../utils';
 import { getGeneriConfig } from '../generi';
 import { isGit } from '../git';
+import { publish } from '../npm';
 
 const validateLog = (tag: GitNewTag) => {
 	const commits = newCommits();
@@ -69,4 +70,6 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 	if (config.tag && (!options.init || !lerna)) setTag(next);
 
 	pushCommits();
+
+	publish(next);
 };

@@ -73,3 +73,7 @@ Insert new version in package.json
 ##### `push` Default: `false`
 
 Push commits in actually branch after log
+
+##### `publish` Default: `false`
+
+Publish(NPM) package in final log

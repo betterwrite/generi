@@ -39,4 +39,7 @@ export interface GeneriOptions {
 
 	/* push commits in actually branch after log */
 	push: boolean;
+
+	/* publish in npm */
+	publish: boolean;
 }

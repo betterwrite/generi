@@ -3,6 +3,6 @@
   "commits": "conventional-commits",
   "tag": true,
   "version": true,
-  "monorepo": false,
-  "push": true
+  "push": true,
+  "publish": true
 }
