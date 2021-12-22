@@ -2,14 +2,14 @@ import { createChangelog } from '../changelog';
 import { GitNewTag, LogOptions } from '../types';
 import { nextTag, lastTag, setVersion, setTag, newCommits, isValidTag } from '../git';
 import { success, error, getHeader } from '../console';
-import { existsGeneri, isChangesForCommit } from '../utils';
+import { isChangesForCommit, existsConfig } from '../utils';
 import { getGeneriConfig } from '../generi';
 import { isGit } from '../git';
 
 const validateLog = (tag: GitNewTag) => {
 	const commits = newCommits();
 
-	if (!existsGeneri()) {
+	if (!existsConfig()) {
 		error('Generi not exists! Use <generi init> command instead.');
 		return false;
 	}

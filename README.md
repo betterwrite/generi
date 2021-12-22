@@ -20,7 +20,7 @@ A Simple CHANGELOG.md Generator for JavaScript / TypeScript Projects.
 `npm i -g generi` `yarn global add generi`
 ### Basic Usage
 
-To initialize generi, use 'generi init'.
+To initialize generi, use `generi init`
 
 To generate a release, use `generi log <release>`
 

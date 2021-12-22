@@ -20,10 +20,6 @@ export const getConfigRoot = (p: string = 'generi.json') => {
 	return path.join(getRoot(), p);
 };
 
-export const getDefaultGeneriConfig = (p: string = 'src/defines/generi-default.json') => {
-	return path.join(getRoot(), p);
-};
-
 export const getRootPath = () => {
 	return execa.sync('git', ['rev-parse', '--show-toplevel'], { cwd: getRoot() }).stdout;
 };
@@ -54,10 +50,6 @@ export const existsChangelog = () => {
 
 export const existsConfig = () => {
 	return fs.existsSync(getConfigRoot());
-};
-
-export const existsGeneri = () => {
-	return fs.existsSync(getDefaultGeneriConfig());
 };
 
 export const getFile = (path: string): any => {
