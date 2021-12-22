@@ -248,7 +248,7 @@ export const revertAll = () => {
 
 	isChangesForCommit(isGit());
 
-	if (verifyExistentRemote())
+	if (!verifyExistentRemote())
 		error(
 			'No remotes were found! Use git remote add origin <github|gitlab|gitbucket repository> instead.'
 		);
