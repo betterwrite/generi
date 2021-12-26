@@ -57,54 +57,36 @@ export const lastTag = (): string => {
 };
 
 export const nextTag = (options: GitNewTagOptions) => {
-	const resetPatch = (str: string) => {
-		return str.slice(0, -1) + 0;
+	let [major, minor, patch] = options.last
+		.replace('v', '')
+		.split('.')
+		.map((v) => Number(v));
+
+	const resetPatch = () => {
+		patch = 0;
 	};
 
-	const resetMinor = (str: string) => {
-		let r = '';
-
-		r = str.slice(0, 3) + str.slice(4);
-
-		r = r.slice(0, 3) + 0 + r.slice(3);
-
-		return r;
+	const resetMinor = () => {
+		patch = 0;
+		minor = 0;
 	};
-
-	let t = '';
 
 	if (options.tag === 'patch') {
-		const patch = Number(options.last.charAt(options.last.length - 1));
-
-		t = options.last.slice(0, -1) + (patch + 1);
-
-		return t;
+		patch++;
 	}
 
 	if (options.tag === 'minor') {
-		const minor = Number(options.last.charAt(3)) + 1;
-
-		t = options.last.slice(0, 3) + options.last.slice(4);
-
-		t = t.slice(0, 3) + minor + t.slice(3);
-
-		t = resetPatch(t);
-
-		return t;
+		minor++;
+		resetPatch();
 	}
 
 	if (options.tag === 'major') {
-		const major = Number(options.last.charAt(1)) + 1;
-
-		t = options.last.slice(0, 1) + options.last.slice(2);
-
-		t = t.slice(0, 1) + major + t.slice(1);
-
-		t = resetMinor(t);
-		t = resetPatch(t);
-
-		return t;
+		major++;
+		resetMinor();
+		resetPatch();
 	}
+
+	return 'v' + major + '.' + minor + '.' + patch;
 };
 
 export const ConventionalChangelogNewCommits = () => {

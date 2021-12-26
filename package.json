@@ -34,7 +34,7 @@
     "start": "yarn build && node build/index.js",
     "build": "rimraf ./build && tsc -d",
     "test": "jest --config ./jest.config.json",
-    "set": "prettier --write src/",
+    "set": "prettier --write src/ tests/",
     "pub": "yarn test && yarn build && npm publish"
   },
   "bin": {
