@@ -1,6 +1,15 @@
-# Changelog (25/12/2021)
+# Changelog (26/12/2021)
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
+
+### v0.2.9
+
+* **fix(lerna):** tracking lerna version command error [7a7c9d0]
+* **Revert "feat(md):** unicodes in conventional-commits" [fe47950]
+
+### v0.2.8
+
+* **feat(md):** unicodes in conventional-commits [06c81ba]
 
 ### v0.2.7
 
