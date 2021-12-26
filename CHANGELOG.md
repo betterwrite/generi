@@ -1,6 +1,10 @@
-# Changelog (22/12/2021)
+# Changelog (25/12/2021)
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
+
+### v0.2.6
+
+* **fix(lerna):** set flags in lerna version [ea3ccb0]
 
 ### v0.2.5
 
