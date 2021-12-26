@@ -17,6 +17,10 @@ const setSubHeader = (commit: Commit) => {
 	return '\n### ' + v + '\n\n';
 };
 
+const getPrefix = (str: string) => {
+	return conventional.type.find((type) => type[0] === str);
+};
+
 const setBasic = (commit: Commit) => {
 	const generi = getGeneriConfig();
 	let result: any;
@@ -38,8 +42,17 @@ const setBasic = (commit: Commit) => {
 	if (generi.commits === 'conventional-commits') {
 		if (!result[0] || !result[1]) return '';
 
+		const prefix = getPrefix(result[0]) || '';
+
 		return (
-			'* **' + result[0].trim() + ':** ' + result[1].trim() + ` [${commit.sha}]` + '\n'
+			'* ' +
+			prefix +
+			' **' +
+			result[0].trim() +
+			':** ' +
+			result[1].trim() +
+			` [${commit.sha}]` +
+			'\n'
 		);
 	}
 
@@ -52,7 +65,7 @@ const isConventionalCommit = (commit: Commit) => {
 	let correct = false;
 
 	conventional.type.forEach((type) => {
-		if (commit.summary.includes(type)) correct = true;
+		if (commit.summary.includes(type[0])) correct = true;
 	});
 
 	return correct;
