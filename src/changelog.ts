@@ -49,13 +49,7 @@ const setBasic = (commit: Commit) => {
 };
 
 const isConventionalCommit = (commit: Commit) => {
-	let correct = false;
-
-	conventional.type.forEach((type) => {
-		if (commit.summary.includes(type)) correct = true;
-	});
-
-	return correct;
+	return conventional.type.find((type) => commit.summary.includes(type));
 };
 
 export const setActuallyTag = (tag: string) => {
