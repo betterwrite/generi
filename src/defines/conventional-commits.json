@@ -1,14 +1,14 @@
 {
 	"type": [
-		["feat", "🚀"],
-		["fix", "🔧"],
-		["build", "💣"],
-		["chore", "📦"],
-		["ci", "🔥"],
-		["docs", "⏺"],
-		["style", "🎨"],
-		["refactor", "☕"],
-		["perf", "⏰"],
-		["test", "🧪"]
+		"feat",
+		"fix",
+		"build",
+		"chore",
+		"ci",
+		"docs",
+		"style",
+		"refactor",
+		"perf",
+		"test"
 	]
 }

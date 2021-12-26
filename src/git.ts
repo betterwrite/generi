@@ -151,7 +151,7 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 			'--no-changelog',
 			'--no-git-tag-version',
 			'--no-push',
-			'--yes',
+      '--yes',
 			'--force-publish',
 		]);
 
