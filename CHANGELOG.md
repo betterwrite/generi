@@ -2,6 +2,10 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.2.7
+
+* **fix(lerna):** --yes flag in lerna version [77287d2]
+
 ### v0.2.6
 
 * **fix(lerna):** set flags in lerna version [ea3ccb0]
