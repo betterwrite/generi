@@ -2,6 +2,11 @@
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
 
+### v0.3.0
+
+* **refactor(changelog):** search valid conventional-commit [590c83d]
+* **refactor(git):** release tag with a some arguments [f47e5ba]
+
 ### v0.2.9
 
 * **fix(lerna):** tracking lerna version command error [7a7c9d0]
