@@ -143,17 +143,21 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 
 	// monorepo with lerna
 	if (lerna) {
-		info(`Executing lerna version ${tag} command...`);
+		info(`Executing <lerna version ${tag}> command...`);
 
-		execa.sync('lerna', [
-			'version',
-			tag,
-			'--no-changelog',
-			'--no-git-tag-version',
-			'--no-push',
-      '--yes',
-			'--force-publish',
-		]);
+		try {
+			execa.sync('lerna', [
+				'version',
+				tag,
+				'--no-changelog',
+				'--no-git-tag-version',
+				'--no-push',
+				'--yes',
+				'--force-publish',
+			]);
+		} catch (e) {
+			error(`Could not execute <lerna version ${tag}> command`);
+		}
 
 		//if lerna version has no previous workspace changes, it does not execute any command to change the version.
 		if (JSON.parse(lerna).version === JSON.parse(getFile(getLernaRoot())).version) {
