@@ -237,7 +237,9 @@ export const pushCommits = () => {
 
 	info(`Pushing...`);
 
-	execa.sync('git', ['push']);
+	const target = execa.sync('git', ['branch', '--show']);
+
+	execa.sync('git', ['push', 'origin', target?.stdout || 'main']);
 
 	execa.sync('git', ['push', '--tags']);
 
