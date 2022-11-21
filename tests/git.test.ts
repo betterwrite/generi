@@ -1,4 +1,5 @@
 import { nextTag } from '../src/git';
+import { describe, expect, it } from 'vitest';
 
 describe('GIT', () => {
 	// git next tag tests

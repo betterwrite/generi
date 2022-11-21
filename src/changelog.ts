@@ -1,5 +1,5 @@
 import { success } from './console';
-import { commits, isTagCommit, setCommit, lastTag, getTagCommit } from './git';
+import { commits, isTagCommit, setCommit, getTagCommit } from './git';
 import { Commit } from './types';
 import { setChangelog } from './utils';
 import { getGeneriConfig } from './generi';
