@@ -1,6 +1,15 @@
-# Changelog (26/12/2021)
+# Changelog (21/11/2022)
 
 Changelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.
+
+### v0.3.1
+
+* **fix(log):** continue in existente staged changes [598aabe]
+* **fix(git):** push in correct branch [869b94a]
+* **chore:** test command [30ed2fa]
+* **chore:** typo [531db55]
+* **refactor:** general improvements [2936c3e]
+* **chore:** readme [7aa03a9]
 
 ### v0.3.0
 
