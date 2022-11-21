@@ -1,12 +1,11 @@
-<p align="center">
-  <img src="./.github/logo.png" height="230">
-</p>
-
 <h1 align="center">
 Generi
 </h1>
+<p align="center">
+  <img src="./.github/logo.png" height="230">
+</p>
 <h4 align="center">
-A Simple CHANGELOG.md Generator for JavaScript / TypeScript Projects.
+A CHANGELOG.md Generator for JavaScript / TypeScript Projects.
 <h4>
 <p align="center">
   <a href="https://www.npmjs.com/package/generi"><img src="https://img.shields.io/npm/v/generi?style=for-the-badge&color=a0a3cf&label="></a>
@@ -21,7 +20,7 @@ A Simple CHANGELOG.md Generator for JavaScript / TypeScript Projects.
 
 ### Install
 
-`npm i -g generi` `yarn global add generi`
+`npm i -g generi` or `yarn global add generi`
 
 ### Usage
 
