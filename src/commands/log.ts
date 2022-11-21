@@ -41,8 +41,6 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	if (options.header) getHeader(`generi log ${tag}`);
 
-	isChangesForCommit(isGit());
-
 	if (!validateLog(tag)) return;
 
 	const lerna = getFile(getLernaRoot());
