@@ -7,6 +7,7 @@ import { GitNewTag } from './types';
 import * as init from './commands/init';
 import * as log from './commands/log';
 import * as revert from './commands/revert';
+import * as test from './commands/test';
 
 (async function () {
 	const prog = sade('generi');
@@ -38,6 +39,15 @@ import * as revert from './commands/revert';
 		.example('revert')
 		.action(() => {
 			revert.setup();
+		});
+
+	prog
+		.command('test', 'A some test', {
+			alias: ['tests'],
+		})
+		.example('test')
+		.action(() => {
+			test.setup();
 		});
 
 	prog.parse(process.argv);
