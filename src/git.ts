@@ -1,13 +1,6 @@
 import { success, error, info } from './console';
 import { Commit, GitNewTagOptions, GitNewTag } from './types';
-import {
-	getRoot,
-	setFile,
-	getFile,
-	getPackageRoot,
-	getLernaRoot,
-	getConfigRoot,
-} from './utils';
+import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
 import fs from 'fs';
 import path from 'path';
 import execa from 'execa';

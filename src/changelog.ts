@@ -1,9 +1,28 @@
 import { success } from './console';
 import { commits, isTagCommit, setCommit, getTagCommit } from './git';
-import { Commit } from './types';
+import { Commit, GeneriEmoticon } from './types';
 import { setChangelog } from './utils';
 import { getGeneriConfig } from './generi';
 import conventional from './defines/conventional-commits.json';
+
+const getEmoji = (str: string): string => {
+	const emojis: GeneriEmoticon[] = [
+		['feat', '🎉 '],
+		['fix', '🔧 '],
+		['build', '📐 '],
+		['chore', '🚧 '],
+		['ci', '🗿 '],
+		['style', '🎨 '],
+		['refactor', '🚩 '],
+		['perf', '📈 '],
+		['docs', '📝 '],
+		['test', '🔧 '],
+	];
+
+	const target = emojis.find(([key]) => str.includes(key));
+
+	return target ? target[1] : '  ';
+};
 
 const getChangelogHeader = () => {
 	return `# Changelog (${new Date().toLocaleDateString()})\n\nChangelog was created by [Generi](https://github.com/Novout/generi). Any questions, consult the documentation.\n`;
@@ -39,7 +58,13 @@ const setBasic = (commit: Commit) => {
 		if (!result[0] || !result[1]) return '';
 
 		return (
-			'* **' + result[0].trim() + ':** ' + result[1].trim() + ` [${commit.sha}]` + '\n'
+			'* **' +
+			getEmoji(result[0]) +
+			result[0].trim() +
+			':** ' +
+			result[1].trim() +
+			` [${commit.sha}]` +
+			'\n'
 		);
 	}
 

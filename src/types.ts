@@ -43,3 +43,16 @@ export interface GeneriOptions {
 	/* publish in npm */
 	publish: boolean;
 }
+
+export type GeneriConventionalCommits =
+	| 'feat'
+	| 'fix'
+	| 'build'
+	| 'chore'
+	| 'ci'
+	| 'docs'
+	| 'style'
+	| 'refactor'
+	| 'perf'
+	| 'test';
+export type GeneriEmoticon = [GeneriConventionalCommits, string];
