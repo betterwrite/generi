@@ -5,7 +5,7 @@ Generi
   <img src="./.github/logo.png" height="230">
 </p>
 <h4 align="center">
-A CHANGELOG.md Generator for JavaScript / TypeScript Projects.
+A Versioning Generator for JavaScript Projects.
 <h4>
 <p align="center">
   <a href="https://www.npmjs.com/package/generi"><img src="https://img.shields.io/npm/v/generi?style=for-the-badge&color=a0a3cf&label="></a>
