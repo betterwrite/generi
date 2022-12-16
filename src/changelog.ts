@@ -48,8 +48,7 @@ const setBasic = (commit: Commit) => {
 		result = commit.summary
 			.split(/:(.+)/)
 			.filter((part) => part)
-			.map((part) => part.trimStart())
-			.filter((part) => getValidConventionalCommit(part));
+			.map((part) => part.trimStart());
 	} else {
 		result = commit.summary;
 	}
@@ -78,8 +77,8 @@ const setBasic = (commit: Commit) => {
 	return '* ' + (result as string).trim() + ` [${commit.sha}]` + '\n';
 };
 
-const isConventionalCommit = (commit: Commit) => {
-	return conventional.type.find((type) => commit.summary.includes(type));
+const isConventionalCommit = (commit: Commit): boolean => {
+	return conventional.type.some((type) => commit.summary.trim().startsWith(type));
 };
 
 export const setActuallyTag = (tag: string) => {
