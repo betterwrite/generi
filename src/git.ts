@@ -137,6 +137,7 @@ export const setVersion = (target: string, tag: GitNewTag) => {
       if(options.publish) {
         execa.sync('lerna', [
           'publish',
+          'from-package',
           '--yes'
         ]);
       }
