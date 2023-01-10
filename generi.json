@@ -1,4 +1,5 @@
 {
+  "repository": "https://github.com/betterwrite/generi",
   "silent": false,
   "commits": "conventional-commits",
   "tag": true,

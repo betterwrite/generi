@@ -51,10 +51,9 @@ const setBasic = (commit: Commit) => {
 		result = commit.summary;
 	}
 
-	/*
-	const type =
-		parts[0].match(/(feat|fix|build|chore|ci|docs|style|refactor|perf|test)((.+))/) || [];
-  */
+	const sha = generi?.repository
+		? ` [${commit.sha}](${generi.repository}/commit/${commit.sha})`
+		: ` [${commit.sha}]`;
 
 	if (generi.commits === 'conventional-commits') {
 		if (!result[0] || !result[1]) return '';
@@ -65,14 +64,14 @@ const setBasic = (commit: Commit) => {
 			result[0].trim() +
 			':** ' +
 			result[1].trim() +
-			` [${commit.sha}]` +
+			sha +
 			'\n'
 		);
 	}
 
 	if (isTagCommit(commit)) return '';
 
-	return '* ' + (result as string).trim() + ` [${commit.sha}]` + '\n';
+	return '* ' + (result as string).trim() + sha + '\n';
 };
 
 const isConventionalCommit = (commit: Commit): boolean => {

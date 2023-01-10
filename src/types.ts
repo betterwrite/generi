@@ -25,6 +25,9 @@ export interface LogOptions {
 }
 
 export interface GeneriOptions {
+	/* repository url for sha link generate. */
+	repository?: string;
+
 	/* Do not emit any message in console. */
 	silent: boolean;
 
