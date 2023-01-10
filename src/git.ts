@@ -113,8 +113,6 @@ export const getTagCommit = (commit: Commit) => {
 };
 
 export const setVersion = (target: string, tag: GitNewTag) => {
-	const options = getGeneriConfig();
-
 	const normalize = target.substring(1);
 	let lerna = getFile(getLernaRoot());
 
@@ -133,10 +131,6 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 				'--yes',
 				'--force-publish',
 			]);
-
-			if (options.publish) {
-				execa.sync('lerna', ['publish', 'from-package', '--yes']);
-			}
 		} catch (e) {
 			error(`Could not execute <lerna version ${tag}> command`);
 		}

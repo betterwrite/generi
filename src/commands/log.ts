@@ -68,5 +68,5 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	pushCommits();
 
-	publish(next);
+	if (config.publish) publish(next, lerna);
 };
