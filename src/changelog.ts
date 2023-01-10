@@ -89,19 +89,20 @@ export const setActuallyTag = (tag: string) => {
 
 export const createChangelog = (tag: string) => {
 	const config = getGeneriConfig();
+	const exclude = config?.exclude ?? [' typo'];
+
 	let changelog = getChangelogHeader();
 
 	if (config.tag) changelog += setActuallyTag(tag);
 
 	commits().forEach((commit) => {
+		if (exclude.some((c) => commit.summary.includes(c))) return;
+
 		if (isTagCommit(commit)) {
 			changelog += setSubHeader(commit);
 			return;
 		}
-		if (
-			!isConventionalCommit(commit) &&
-			getGeneriConfig().commits === 'conventional-commits'
-		)
+		if (!isConventionalCommit(commit) && config.commits === 'conventional-commits')
 			return;
 
 		changelog += setBasic(commit);

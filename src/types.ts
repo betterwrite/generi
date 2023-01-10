@@ -45,6 +45,9 @@ export interface GeneriOptions {
 
 	/* publish in npm */
 	publish: boolean;
+
+	/* exclude commits */
+	exclude?: string[];
 }
 
 export type GeneriConventionalCommits =

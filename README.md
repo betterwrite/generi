@@ -76,3 +76,11 @@ Push commits in actually branch after log
 ##### `publish` Default: `false`
 
 Publish(NPM) package in final log
+
+##### `repository` Default: `undefined`
+
+A URL to git repository for sha256 open link
+
+##### `exclude` Default: `[" typo"]`
+
+Invalidates commits in CHANGELOG.md that contain the considered options
