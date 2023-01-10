@@ -5,10 +5,6 @@ import { setChangelog } from './utils';
 import { getGeneriConfig } from './generi';
 import conventional from './defines/conventional-commits.json';
 
-const getValidConventionalCommit = (str: string) => {
-	return conventional.type.some((c) => str.startsWith(c));
-};
-
 const getEmoji = (str: string): string => {
 	const emojis: GeneriEmoticon[] = [
 		['feat', '🎉 '],
@@ -36,6 +32,8 @@ const setSubHeader = (commit: Commit) => {
 	const v = isTagCommit(commit)
 		? getTagCommit(commit)
 		: commit.summary.replace(/'/gi, '');
+
+	if (v.trim().startsWith('origin/')) return '';
 
 	return '\n### ' + v + '\n\n';
 };
