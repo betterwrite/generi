@@ -6,9 +6,9 @@ export const publish = (target: string, lerna?: boolean) => {
 
 	if (lerna) {
 		try {
-			execa.sync('lerna', ['publish', 'from-package', '--yes']);
+			execa.sync('lerna', ['publish', '\'from-package\'', '--yes', '--no-push', '--force-publish']);
 		} catch (e) {
-			error('Unable to publish the package in NPM!');
+			error('Unable to publish the package in NPM with <lerna publish> command!');
 		}
 	} else {
 		try {
