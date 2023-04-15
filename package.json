@@ -31,11 +31,11 @@
   ],
   "scripts": {
     "dev": "yarn build && node .",
-    "dev:force": "rimraf ./.git && rimraf ./generi.json && yarn dev",
     "build": "tsup src/index.ts --minify --clean",
     "build:watch": "tsup src/index.ts --minify --clean --watch",
     "test": "vitest run --coverage",
-    "format": "prettier --write src/ tests/"
+    "format": "prettier --write src/ tests/",
+    "prepublishOnly": "pnpm dev"
   },
   "bin": {
     "generi": "dist/index.js"
