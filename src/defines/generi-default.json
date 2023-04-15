@@ -4,5 +4,6 @@
 	"tag": true,
 	"version": true,
 	"push": false,
-	"publish": false
+	"publish": false,
+  "exclude": [" typo"]
 }
