@@ -30,12 +30,12 @@
     "cli"
   ],
   "scripts": {
-    "dev": "yarn build && node .",
+    "dev": "pnpm build && node .",
     "build": "tsup src/index.ts --minify --clean",
     "build:watch": "tsup src/index.ts --minify --clean --watch",
     "test": "vitest run --coverage",
     "format": "prettier --write src/ tests/",
-    "prepublishOnly": "pnpm dev"
+    "prepublishOnly": "pnpm build"
   },
   "bin": {
     "generi": "dist/index.js"
