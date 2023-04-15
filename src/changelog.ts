@@ -53,7 +53,7 @@ const setBasic = (commit: Commit) => {
 
 	const sha = generi?.repository
 		? ` - [[${commit.sha}](${generi.repository}/commit/${commit.sha})]`
-		: ` [${commit.sha}]`;
+		: '';
 
 	if (generi.commits === 'conventional-commits') {
 		if (!result[0] || !result[1]) return '';
