@@ -1,11 +1,12 @@
 import gradient from 'gradient-string';
 import { isSilent } from './generi';
 import consola from 'consola';
+import pkg from '../package.json';
 
 export const getHeader = (command: string) => {
 	if (isSilent()) return;
 
-	const title = `Generi - A CHANGELOG.md Generator | ${command}`;
+	const title = `Generi ${pkg.version} | ${command}`;
 	consola.log(gradient.vice(title));
 	consola.log(gradient.vice('■'.repeat(title.length)));
 	consola.log('\n');

@@ -5,5 +5,5 @@
 	"version": true,
 	"push": false,
 	"publish": false,
-  "exclude": [" typo"]
+	"exclude": [" typo"]
 }
