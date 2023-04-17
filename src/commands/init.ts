@@ -17,7 +17,7 @@ export const setup = () => {
 
 	isChangesForCommit(git);
 
-  // @ts-expect-error
+	// @ts-expect-error
 	setGeneriConfig(generiDefault);
 
 	if (git) {

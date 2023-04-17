@@ -50,10 +50,10 @@ export const nextTag = (options: GitNewTagOptions) => {
 
 	if (!options?.unreleased) return 'v' + raw;
 
-	alphaOrBetaValue = alphaOrBetaValue ? 1 + (Number(alphaOrBetaValue) as number) : 0;
+	alphaOrBetaValue = alphaOrBetaValue ? 1 + (Number(alphaOrBetaValue) as number) : 1;
 
 	const isDifferentPreArgument = !alphaOrBeta?.includes(options?.unreleased ?? '');
-	alphaOrBetaValue = isDifferentPreArgument && alphaOrBeta ? 0 : alphaOrBetaValue;
+	alphaOrBetaValue = isDifferentPreArgument && alphaOrBeta ? 1 : alphaOrBetaValue;
 
 	return 'v' + raw + `-${options.unreleased}.` + alphaOrBetaValue;
 };

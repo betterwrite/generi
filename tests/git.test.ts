@@ -127,17 +127,17 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				unreleased: 'alpha',
 			})
-		).toEqual('v0.17.16-alpha.0');
+		).toEqual('v0.17.16-alpha.1');
 	});
 
 	it('should next patch tag with alpha pre-argument', () => {
 		expect(
 			nextTag({
 				tag: 'prepatch',
-				last: 'v0.17.16-alpha.0',
+				last: 'v0.17.16-alpha.1',
 				unreleased: 'alpha',
 			})
-		).toEqual('v0.17.16-alpha.1');
+		).toEqual('v0.17.16-alpha.2');
 	});
 
 	it('should next minor tag with alpha argument', () => {
@@ -147,17 +147,17 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				unreleased: 'alpha',
 			})
-		).toEqual('v0.18.0-alpha.0');
+		).toEqual('v0.18.0-alpha.1');
 	});
 
 	it('should next minor tag with alpha pre-argument', () => {
 		expect(
 			nextTag({
 				tag: 'preminor',
-				last: 'v0.18.0-alpha.0',
+				last: 'v0.18.0-alpha.1',
 				unreleased: 'alpha',
 			})
-		).toEqual('v0.18.0-alpha.1');
+		).toEqual('v0.18.0-alpha.2');
 	});
 
 	it('should next major tag with alpha argument', () => {
@@ -167,17 +167,17 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				unreleased: 'alpha',
 			})
-		).toEqual('v1.0.0-alpha.0');
+		).toEqual('v1.0.0-alpha.1');
 	});
 
 	it('should next major tag with alpha pre-argument', () => {
 		expect(
 			nextTag({
 				tag: 'premajor',
-				last: 'v1.0.0-alpha.0',
+				last: 'v1.0.0-alpha.1',
 				unreleased: 'alpha',
 			})
-		).toEqual('v1.0.0-alpha.1');
+		).toEqual('v1.0.0-alpha.2');
 	});
 
 	it('should next patch tag with beta argument', () => {
@@ -187,17 +187,17 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				unreleased: 'beta',
 			})
-		).toEqual('v0.17.16-beta.0');
+		).toEqual('v0.17.16-beta.1');
 	});
 
 	it('should next patch tag with beta pre-argument', () => {
 		expect(
 			nextTag({
 				tag: 'prepatch',
-				last: 'v0.17.16-beta.0',
+				last: 'v0.17.16-beta.1',
 				unreleased: 'beta',
 			})
-		).toEqual('v0.17.16-beta.1');
+		).toEqual('v0.17.16-beta.2');
 	});
 
 	it('should next minor tag with beta argument', () => {
@@ -207,17 +207,17 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				unreleased: 'beta',
 			})
-		).toEqual('v0.18.0-beta.0');
+		).toEqual('v0.18.0-beta.1');
 	});
 
 	it('should next minor tag with beta pre-argument', () => {
 		expect(
 			nextTag({
 				tag: 'preminor',
-				last: 'v0.18.0-beta.0',
+				last: 'v0.18.0-beta.1',
 				unreleased: 'beta',
 			})
-		).toEqual('v0.18.0-beta.1');
+		).toEqual('v0.18.0-beta.2');
 	});
 
 	it('should next major tag with beta argument', () => {
@@ -227,17 +227,17 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				unreleased: 'beta',
 			})
-		).toEqual('v1.0.0-beta.0');
+		).toEqual('v1.0.0-beta.1');
 	});
 
 	it('should next major tag with beta pre-argument', () => {
 		expect(
 			nextTag({
 				tag: 'premajor',
-				last: 'v1.0.0-beta.0',
+				last: 'v1.0.0-beta.1',
 				unreleased: 'beta',
 			})
-		).toEqual('v1.0.0-beta.1');
+		).toEqual('v1.0.0-beta.2');
 	});
 
 	it('should next major tag with beta argument', () => {
@@ -265,7 +265,7 @@ describe('GIT', () => {
 				last: 'v1.0.0-alpha.27',
 				unreleased: 'beta',
 			})
-		).toEqual('v1.0.0-beta.0');
+		).toEqual('v1.0.0-beta.1');
 	});
 
 	it('should next tag with pre-beta argument to alpha-argument', () => {
@@ -275,6 +275,6 @@ describe('GIT', () => {
 				last: 'v1.0.0-beta.27',
 				unreleased: 'alpha',
 			})
-		).toEqual('v1.0.0-alpha.0');
+		).toEqual('v1.0.0-alpha.1');
 	});
 });
