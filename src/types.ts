@@ -11,16 +11,27 @@ export interface ConventionalCommit {
 	type: string;
 }
 
-export type GitNewTag = 'patch' | 'minor' | 'major';
+export type GitNewTag =
+	| 'patch'
+	| 'prepatch'
+	| 'minor'
+	| 'preminor'
+	| 'major'
+	| 'premajor';
+export type GitUnreleased = 'alpha' | 'beta';
+export interface GitLogOptions {
+	unreleased?: GitUnreleased;
+}
 
 export interface GitNewTagOptions {
 	last: string;
 	tag: GitNewTag;
-	unreleased?: 'alpha' | 'beta';
+	unreleased?: GitUnreleased;
 }
 
 export interface LogOptions {
 	header: boolean;
+	git: GitLogOptions;
 	init?: boolean;
 }
 
@@ -48,6 +59,9 @@ export interface GeneriOptions {
 
 	/* exclude commits */
 	exclude?: string[];
+
+	/* default 'beta' or 'alpha' argument for pre(patch|minor|major) log command */
+	unreleased?: GitUnreleased;
 }
 
 export type GeneriConventionalCommits =
@@ -61,4 +75,5 @@ export type GeneriConventionalCommits =
 	| 'refactor'
 	| 'perf'
 	| 'test';
+
 export type GeneriEmoticon = [GeneriConventionalCommits, string];

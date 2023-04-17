@@ -1,4 +1,4 @@
-import { nextTag } from '../src/git';
+import { nextTag } from '../src/tag';
 import { describe, expect, it } from 'vitest';
 
 describe('GIT', () => {
@@ -118,5 +118,163 @@ describe('GIT', () => {
 				last: 'v99.10.5',
 			})
 		).toEqual('v100.0.0');
+	});
+
+	it('should next patch tag with alpha argument', () => {
+		expect(
+			nextTag({
+				tag: 'prepatch',
+				last: 'v0.17.15',
+				unreleased: 'alpha',
+			})
+		).toEqual('v0.17.16-alpha.0');
+	});
+
+	it('should next patch tag with alpha pre-argument', () => {
+		expect(
+			nextTag({
+				tag: 'prepatch',
+				last: 'v0.17.16-alpha.0',
+				unreleased: 'alpha',
+			})
+		).toEqual('v0.17.16-alpha.1');
+	});
+
+	it('should next minor tag with alpha argument', () => {
+		expect(
+			nextTag({
+				tag: 'preminor',
+				last: 'v0.17.15',
+				unreleased: 'alpha',
+			})
+		).toEqual('v0.18.0-alpha.0');
+	});
+
+	it('should next minor tag with alpha pre-argument', () => {
+		expect(
+			nextTag({
+				tag: 'preminor',
+				last: 'v0.18.0-alpha.0',
+				unreleased: 'alpha',
+			})
+		).toEqual('v0.18.0-alpha.1');
+	});
+
+	it('should next major tag with alpha argument', () => {
+		expect(
+			nextTag({
+				tag: 'premajor',
+				last: 'v0.17.15',
+				unreleased: 'alpha',
+			})
+		).toEqual('v1.0.0-alpha.0');
+	});
+
+	it('should next major tag with alpha pre-argument', () => {
+		expect(
+			nextTag({
+				tag: 'premajor',
+				last: 'v1.0.0-alpha.0',
+				unreleased: 'alpha',
+			})
+		).toEqual('v1.0.0-alpha.1');
+	});
+
+	it('should next patch tag with beta argument', () => {
+		expect(
+			nextTag({
+				tag: 'prepatch',
+				last: 'v0.17.15',
+				unreleased: 'beta',
+			})
+		).toEqual('v0.17.16-beta.0');
+	});
+
+	it('should next patch tag with beta pre-argument', () => {
+		expect(
+			nextTag({
+				tag: 'prepatch',
+				last: 'v0.17.16-beta.0',
+				unreleased: 'beta',
+			})
+		).toEqual('v0.17.16-beta.1');
+	});
+
+	it('should next minor tag with beta argument', () => {
+		expect(
+			nextTag({
+				tag: 'preminor',
+				last: 'v0.17.15',
+				unreleased: 'beta',
+			})
+		).toEqual('v0.18.0-beta.0');
+	});
+
+	it('should next minor tag with beta pre-argument', () => {
+		expect(
+			nextTag({
+				tag: 'preminor',
+				last: 'v0.18.0-beta.0',
+				unreleased: 'beta',
+			})
+		).toEqual('v0.18.0-beta.1');
+	});
+
+	it('should next major tag with beta argument', () => {
+		expect(
+			nextTag({
+				tag: 'premajor',
+				last: 'v0.17.15',
+				unreleased: 'beta',
+			})
+		).toEqual('v1.0.0-beta.0');
+	});
+
+	it('should next major tag with beta pre-argument', () => {
+		expect(
+			nextTag({
+				tag: 'premajor',
+				last: 'v1.0.0-beta.0',
+				unreleased: 'beta',
+			})
+		).toEqual('v1.0.0-beta.1');
+	});
+
+	it('should next major tag with beta argument', () => {
+		expect(
+			nextTag({
+				tag: 'major',
+				last: 'v1.0.0-beta.5',
+			})
+		).toEqual('v2.0.0');
+	});
+
+	it('should next major tag with alpha argument', () => {
+		expect(
+			nextTag({
+				tag: 'major',
+				last: 'v1.0.0-alpha.27',
+			})
+		).toEqual('v2.0.0');
+	});
+
+	it('should next tag with pre-alpha argument to beta-argument', () => {
+		expect(
+			nextTag({
+				tag: 'premajor',
+				last: 'v1.0.0-alpha.27',
+				unreleased: 'beta',
+			})
+		).toEqual('v1.0.0-beta.0');
+	});
+
+	it('should next tag with pre-beta argument to alpha-argument', () => {
+		expect(
+			nextTag({
+				tag: 'premajor',
+				last: 'v1.0.0-beta.27',
+				unreleased: 'alpha',
+			})
+		).toEqual('v1.0.0-alpha.0');
 	});
 });

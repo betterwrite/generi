@@ -2,7 +2,7 @@
 
 import sade from 'sade';
 
-import { GitNewTag } from './types';
+import { GitLogOptions, GitNewTag, GitUnreleased } from './types';
 
 import * as init from './commands/init';
 import * as log from './commands/log';
@@ -19,8 +19,10 @@ import * as test from './commands/test';
 		.example('log patch')
 		.example('log minor')
 		.example('log major')
-		.action((tag: GitNewTag) => {
-			log.setup(tag, { header: true });
+		.example('log major -u beta')
+		.option('-u, --unreleased', 'Unreleased with alpha or beta argument')
+		.action((tag: GitNewTag, git: GitLogOptions) => {
+			log.setup(tag, { header: true, git });
 		});
 
 	prog

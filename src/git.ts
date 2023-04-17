@@ -1,5 +1,5 @@
 import { success, error, info } from './console';
-import { Commit, GitNewTagOptions, GitNewTag } from './types';
+import { Commit, GitNewTag } from './types';
 import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
 import fs from 'fs';
 import path from 'path';
@@ -47,39 +47,6 @@ export const lastTag = (): string => {
 	}
 
 	return (last as any).stdout;
-};
-
-export const nextTag = (options: GitNewTagOptions) => {
-	let [major, minor, patch] = options.last
-		.replace('v', '')
-		.split('.')
-		.map((v) => Number(v));
-
-	const resetPatch = () => {
-		patch = 0;
-	};
-
-	const resetMinor = () => {
-		patch = 0;
-		minor = 0;
-	};
-
-	if (options.tag === 'patch') {
-		patch++;
-	}
-
-	if (options.tag === 'minor') {
-		minor++;
-		resetPatch();
-	}
-
-	if (options.tag === 'major') {
-		major++;
-		resetMinor();
-		resetPatch();
-	}
-
-	return 'v' + major + '.' + minor + '.' + patch;
 };
 
 export const ConventionalChangelogNewCommits = () => {
@@ -272,7 +239,14 @@ export const verifyExistentRemote = () => {
 };
 
 export const isValidTag = (tag: GitNewTag) => {
-	return tag === 'patch' || tag === 'minor' || tag === 'major';
+	return (
+		tag === 'patch' ||
+		tag === 'prepatch' ||
+		tag === 'minor' ||
+		tag === 'preminor' ||
+		tag === 'major' ||
+		tag === 'premajor'
+	);
 };
 
 export const isCleanChanges = (): boolean => {

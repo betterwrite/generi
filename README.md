@@ -9,7 +9,6 @@ A Versioning Generator for JavaScript Projects.
 <h4>
 <p align="center">
   <a href="https://www.npmjs.com/package/generi"><img src="https://img.shields.io/npm/v/generi?style=for-the-badge&color=a0a3cf&label="></a>
-  <a href="https://www.npmjs.com/package/generi"><img src="https://img.shields.io/github/workflow/status/Novout/generi/Tests?style=for-the-badge&color=5BBB74&"></a>
 <p>
 
 <br>
@@ -84,3 +83,7 @@ A URL to git repository for sha256 open link
 ##### `exclude` Default: `[" typo"]`
 
 Invalidates commits in CHANGELOG.md that contain the considered options
+
+##### `unreleased` Default: `beta`
+
+Default 'beta' or 'alpha' argument for pre(patch|minor|major) log command

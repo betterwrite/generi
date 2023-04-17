@@ -1,18 +1,11 @@
 import { createChangelog } from '../changelog';
 import { GitNewTag, LogOptions } from '../types';
-import {
-	nextTag,
-	lastTag,
-	setVersion,
-	setTag,
-	newCommits,
-	isValidTag,
-	pushCommits,
-} from '../git';
+import { lastTag, setVersion, setTag, newCommits, isValidTag, pushCommits } from '../git';
 import { success, error, getHeader } from '../console';
 import { existsConfig, getFile, getLernaRoot } from '../utils';
 import { getGeneriConfig } from '../generi';
 import { publish } from '../npm';
+import { nextTag } from '../tag';
 
 const validateLog = (tag: GitNewTag) => {
 	const commits = newCommits();
@@ -38,6 +31,12 @@ const validateLog = (tag: GitNewTag) => {
 export const setup = (tag: GitNewTag, options: LogOptions) => {
 	const config = getGeneriConfig();
 
+	if (!tag) {
+		error('Insert valid git tag.');
+
+		return;
+	}
+
 	if (options.header) getHeader(`generi log ${tag}`);
 
 	if (!validateLog(tag)) return;
@@ -49,6 +48,9 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 	const next = nextTag({
 		last,
 		tag,
+		unreleased: tag.startsWith('pre')
+			? options?.git?.unreleased ?? config.unreleased
+			: undefined,
 	});
 
 	if (!next) {
