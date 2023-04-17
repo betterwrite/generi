@@ -29,7 +29,9 @@ export const nextTag = (options: GitNewTagOptions) => {
 		minor = 0;
 	};
 
-	if (!alphaOrBeta || (alphaOrBeta && !options?.prerelease)) {
+	const isSameFlow = !options?.prerelease && alphaOrBeta && alphaOrBetaValue;
+
+	if ((!alphaOrBeta || (alphaOrBeta && !options?.prerelease)) && !isSameFlow) {
 		if (options.tag.includes('patch')) {
 			patch++;
 		}
