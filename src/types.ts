@@ -57,6 +57,9 @@ export interface GeneriOptions {
 	/* publish in npm */
 	publish: boolean;
 
+	/* release version with gh release command */
+	release: boolean;
+
 	/* exclude commits */
 	exclude?: string[];
 

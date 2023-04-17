@@ -5,6 +5,7 @@
 	"version": true,
 	"push": false,
 	"publish": false,
+	"release": false,
 	"exclude": [" typo"],
 	"unreleased": "beta"
 }

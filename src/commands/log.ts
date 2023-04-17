@@ -6,6 +6,7 @@ import { existsConfig, getFile, getLernaRoot } from '../utils';
 import { getGeneriConfig } from '../generi';
 import { publish } from '../npm';
 import { nextTag } from '../tag';
+import { release } from '../release';
 
 const validateLog = (tag: GitNewTag) => {
 	const commits = newCommits();
@@ -70,5 +71,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	pushCommits();
 
-	if (config.publish) publish(next, lerna);
+	if (config?.release) release(next, true);
+
+	if (config?.publish) publish(next, lerna);
 };
