@@ -125,7 +125,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'prepatch',
 				last: 'v0.17.15',
-				unreleased: 'alpha',
+				prerelease: 'alpha',
 			})
 		).toEqual('v0.17.16-alpha.1');
 	});
@@ -135,7 +135,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'prepatch',
 				last: 'v0.17.16-alpha.1',
-				unreleased: 'alpha',
+				prerelease: 'alpha',
 			})
 		).toEqual('v0.17.16-alpha.2');
 	});
@@ -145,7 +145,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'preminor',
 				last: 'v0.17.15',
-				unreleased: 'alpha',
+				prerelease: 'alpha',
 			})
 		).toEqual('v0.18.0-alpha.1');
 	});
@@ -155,7 +155,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'preminor',
 				last: 'v0.18.0-alpha.1',
-				unreleased: 'alpha',
+				prerelease: 'alpha',
 			})
 		).toEqual('v0.18.0-alpha.2');
 	});
@@ -165,7 +165,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'premajor',
 				last: 'v0.17.15',
-				unreleased: 'alpha',
+				prerelease: 'alpha',
 			})
 		).toEqual('v1.0.0-alpha.1');
 	});
@@ -175,7 +175,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'premajor',
 				last: 'v1.0.0-alpha.1',
-				unreleased: 'alpha',
+				prerelease: 'alpha',
 			})
 		).toEqual('v1.0.0-alpha.2');
 	});
@@ -185,7 +185,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'prepatch',
 				last: 'v0.17.15',
-				unreleased: 'beta',
+				prerelease: 'beta',
 			})
 		).toEqual('v0.17.16-beta.1');
 	});
@@ -195,7 +195,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'prepatch',
 				last: 'v0.17.16-beta.1',
-				unreleased: 'beta',
+				prerelease: 'beta',
 			})
 		).toEqual('v0.17.16-beta.2');
 	});
@@ -205,7 +205,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'preminor',
 				last: 'v0.17.15',
-				unreleased: 'beta',
+				prerelease: 'beta',
 			})
 		).toEqual('v0.18.0-beta.1');
 	});
@@ -215,7 +215,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'preminor',
 				last: 'v0.18.0-beta.1',
-				unreleased: 'beta',
+				prerelease: 'beta',
 			})
 		).toEqual('v0.18.0-beta.2');
 	});
@@ -225,7 +225,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'premajor',
 				last: 'v0.17.15',
-				unreleased: 'beta',
+				prerelease: 'beta',
 			})
 		).toEqual('v1.0.0-beta.1');
 	});
@@ -235,7 +235,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'premajor',
 				last: 'v1.0.0-beta.1',
-				unreleased: 'beta',
+				prerelease: 'beta',
 			})
 		).toEqual('v1.0.0-beta.2');
 	});
@@ -263,7 +263,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'premajor',
 				last: 'v1.0.0-alpha.27',
-				unreleased: 'beta',
+				prerelease: 'beta',
 			})
 		).toEqual('v1.0.0-beta.1');
 	});
@@ -273,7 +273,7 @@ describe('GIT', () => {
 			nextTag({
 				tag: 'premajor',
 				last: 'v1.0.0-beta.27',
-				unreleased: 'alpha',
+				prerelease: 'alpha',
 			})
 		).toEqual('v1.0.0-alpha.1');
 	});

@@ -29,7 +29,7 @@ export const nextTag = (options: GitNewTagOptions) => {
 		minor = 0;
 	};
 
-	if (!alphaOrBeta || (alphaOrBeta && !options?.unreleased)) {
+	if (!alphaOrBeta || (alphaOrBeta && !options?.prerelease)) {
 		if (options.tag.includes('patch')) {
 			patch++;
 		}
@@ -48,12 +48,12 @@ export const nextTag = (options: GitNewTagOptions) => {
 
 	const raw = major + '.' + minor + '.' + patch;
 
-	if (!options?.unreleased) return 'v' + raw;
+	if (!options?.prerelease) return 'v' + raw;
 
 	alphaOrBetaValue = alphaOrBetaValue ? 1 + (Number(alphaOrBetaValue) as number) : 1;
 
-	const isDifferentPreArgument = !alphaOrBeta?.includes(options?.unreleased ?? '');
+	const isDifferentPreArgument = !alphaOrBeta?.includes(options?.prerelease ?? '');
 	alphaOrBetaValue = isDifferentPreArgument && alphaOrBeta ? 1 : alphaOrBetaValue;
 
-	return 'v' + raw + `-${options.unreleased}.` + alphaOrBetaValue;
+	return 'v' + raw + `-${options.prerelease}.` + alphaOrBetaValue;
 };

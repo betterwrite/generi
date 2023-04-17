@@ -26,7 +26,7 @@ export interface GitLogOptions {
 export interface GitNewTagOptions {
 	last: string;
 	tag: GitNewTag;
-	unreleased?: GitPrerelease;
+	prerelease?: GitPrerelease;
 }
 
 export interface LogOptions {
