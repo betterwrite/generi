@@ -50,7 +50,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 		last,
 		tag,
 		unreleased: tag.startsWith('pre')
-			? options?.git?.unreleased ?? config.unreleased
+			? options?.git?.prerelease ?? config.prerelease
 			: undefined,
 	});
 

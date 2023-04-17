@@ -18,15 +18,15 @@ export type GitNewTag =
 	| 'preminor'
 	| 'major'
 	| 'premajor';
-export type GitUnreleased = 'alpha' | 'beta';
+export type GitPrerelease = 'alpha' | 'beta';
 export interface GitLogOptions {
-	unreleased?: GitUnreleased;
+	prerelease?: GitPrerelease;
 }
 
 export interface GitNewTagOptions {
 	last: string;
 	tag: GitNewTag;
-	unreleased?: GitUnreleased;
+	unreleased?: GitPrerelease;
 }
 
 export interface LogOptions {
@@ -64,7 +64,7 @@ export interface GeneriOptions {
 	exclude?: string[];
 
 	/* default 'beta' or 'alpha' argument for pre(patch|minor|major) log command */
-	unreleased?: GitUnreleased;
+	prerelease?: GitPrerelease;
 }
 
 export type GeneriConventionalCommits =

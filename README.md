@@ -14,8 +14,9 @@ A Versioning Generator for JavaScript Projects.
 <br>
 <br>
 
-- ✅ Easy CLI
-- ✅ Monorepo support (with [Lerna](https://lerna.js.org/))
+- ✅ Easy CL
+- ✅ Monorepo support with [Lerna](https://lerna.js.org/)
+- ✅ Release support with [Github CLI](https://cli.github.com/)
 
 ### Install
 
@@ -84,6 +85,6 @@ A URL to git repository for sha256 open link
 
 Invalidates commits in CHANGELOG.md that contain the considered options
 
-##### `unreleased` Default: `beta`
+##### `prerelease` Default: `beta`
 
 Default 'beta' or 'alpha' argument for pre(patch|minor|major) log command

@@ -7,5 +7,5 @@
 	"publish": false,
 	"release": false,
 	"exclude": [" typo"],
-	"unreleased": "beta"
+	"prerelease": "beta"
 }
