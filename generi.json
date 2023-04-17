@@ -5,6 +5,8 @@
   "tag": true,
   "version": true,
   "push": true,
+  "release": true,
   "publish": true,
-  "exclude": [" typo"]
+  "exclude": [" typo"],
+  "prerelease": "beta"
 }
