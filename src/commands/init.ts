@@ -17,12 +17,13 @@ export const setup = () => {
 
 	isChangesForCommit(git);
 
+  // @ts-expect-error
 	setGeneriConfig(generiDefault);
 
 	if (git) {
 		setCommit('chore: generate generi.json');
 
-		log.setup('patch', { header: false, init: true });
+		log.setup('patch', { header: true, git: { unreleased: undefined } });
 
 		return;
 	}
