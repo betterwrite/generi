@@ -3,6 +3,7 @@ import execa from 'execa';
 import path from 'path';
 import { error } from './console';
 import { isCleanChanges } from './git';
+import { GitNewTag } from './types';
 
 export const getRoot = () => {
 	return process.cwd();
@@ -78,3 +79,5 @@ export const isChangesForCommit = (git: boolean) => {
 			'There are existing changes in project for commit. Commit first before using this command.'
 		);
 };
+
+export const isPrerelease = (tag: GitNewTag) => tag.startsWith('pre');

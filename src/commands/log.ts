@@ -2,7 +2,7 @@ import { createChangelog } from '../changelog';
 import { GitNewTag, LogOptions } from '../types';
 import { lastTag, setVersion, setTag, newCommits, isValidTag, pushCommits } from '../git';
 import { success, error, getHeader } from '../console';
-import { existsConfig, getFile, getLernaRoot } from '../utils';
+import { existsConfig, getFile, getLernaRoot, isPrerelease } from '../utils';
 import { getGeneriConfig } from '../generi';
 import { publish } from '../npm';
 import { nextTag } from '../tag';
@@ -46,12 +46,14 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	const last = lerna ? 'v' + JSON.parse(lerna).version : lastTag();
 
+	const prerelease = isPrerelease(tag)
+		? options?.git?.prerelease ?? config.prerelease ?? 'beta'
+		: undefined;
+
 	const next = nextTag({
 		last,
 		tag,
-		prerelease: tag.startsWith('pre')
-			? options?.git?.prerelease ?? config.prerelease
-			: undefined,
+		prerelease,
 	});
 
 	if (!next) {
@@ -62,7 +64,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 	if (config.version) {
 		success(`${last} to ${next} (${tag.toUpperCase()})`);
 
-		setVersion(next, tag);
+		setVersion(next, tag, prerelease);
 	}
 
 	createChangelog(!config.version ? lastTag() : next);

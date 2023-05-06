@@ -1,5 +1,5 @@
 import { success, error, info } from './console';
-import { Commit, GitNewTag } from './types';
+import { Commit, GitNewTag, GitPrerelease } from './types';
 import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
 import fs from 'fs';
 import path from 'path';
@@ -79,7 +79,11 @@ export const getTagCommit = (commit: Commit) => {
 	return commit.refName.filter((ref) => ref.includes('tag'))[0].replace('tag: ', '');
 };
 
-export const setVersion = (target: string, tag: GitNewTag) => {
+export const setVersion = (
+	target: string,
+	tag: GitNewTag,
+	prerelease?: GitPrerelease
+) => {
 	const normalize = target.substring(1);
 	let lerna = getFile(getLernaRoot());
 
@@ -88,9 +92,12 @@ export const setVersion = (target: string, tag: GitNewTag) => {
 		info(`Executing <lerna version ${tag}> command...`);
 
 		try {
+			const asPrerelease = prerelease ? ['--preid', prerelease] : [];
+
 			execa.sync('lerna', [
 				'version',
 				tag,
+				...asPrerelease,
 				'--no-private',
 				'--no-changelog',
 				'--no-git-tag-version',
