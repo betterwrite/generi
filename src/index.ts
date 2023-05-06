@@ -20,7 +20,7 @@ import * as test from './commands/test';
 		.example('log minor')
 		.example('log major')
 		.example('log major -u beta')
-		.option('-p, --prerelease', 'Unreleased with canary, alpha or beta argument')
+		.option('-p, --prerelease', 'Pre-release with canary, alpha or beta argument')
 		.action((tag: GitNewTag, git: GitLogOptions) => {
 			log.setup(tag, { header: true, git });
 		});
