@@ -39,13 +39,13 @@ Generate CHANGELOG.md and the necessary contents
 
 `generi log major` 0.1.0 >> 1.0.0
 
-`generi log prepatch` 0.1.0 >> 0.1.1-beta.1
+`generi log prepatch` 0.1.0 >> 0.1.1-beta.0
 
-`generi log preminor` 0.1.0 >> 0.2.0-beta.1
+`generi log preminor` 0.1.0 >> 0.2.0-beta.0
 
-`generi log premajor` 0.1.0 >> 1.0.0-beta.1
+`generi log premajor` 0.1.0 >> 1.0.0-beta.0
 
-`generi log premajor -p alpha` 0.1.0 >> 1.0.0-alpha.1
+`generi log premajor -p alpha` 0.1.0 >> 1.0.0-alpha.0
 <br>
 
 #### `generi revert`
@@ -95,4 +95,4 @@ Invalidates commits in CHANGELOG.md that contain the considered options
 
 ##### `prerelease` Default: `beta`
 
-Default 'beta' or 'alpha' argument for prerelease log command
+Default 'canary', 'beta' or 'alpha' argument for prerelease log command

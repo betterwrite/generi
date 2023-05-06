@@ -1,8 +1,9 @@
 import { warning } from './console';
 import { GitNewTagOptions } from './types';
+import { isPrerelease } from './utils';
 
 export const nextTag = (options: GitNewTagOptions) => {
-	let [major, minor, patch, alphaOrBeta, alphaOrBetaValue]: (string | number)[] =
+	let [major, minor, patch, prereleaseName, prereleaseValue]: (string | number)[] =
 		options.last.replace('v', '').split(/[.-]/);
 
 	major = Number(major) as number;
@@ -10,10 +11,10 @@ export const nextTag = (options: GitNewTagOptions) => {
 	patch = Number(patch) as number;
 
 	if (
-		options.tag.startsWith('pre') &&
-		alphaOrBeta &&
-		alphaOrBetaValue &&
-		!options.last.includes(alphaOrBeta)
+		isPrerelease(options.tag) &&
+		prereleaseName &&
+		prereleaseValue &&
+		!options.last.includes(prereleaseName)
 	) {
 		warning(
 			'You are executing a pre(patch|minor|major) command of the same category. This approach is not recommended and may have an unexpected result.'
@@ -29,9 +30,9 @@ export const nextTag = (options: GitNewTagOptions) => {
 		minor = 0;
 	};
 
-	const isSameFlow = !options?.prerelease && alphaOrBeta && alphaOrBetaValue;
+	const isSameFlow = !options?.prerelease && prereleaseName && prereleaseValue;
 
-	if ((!alphaOrBeta || (alphaOrBeta && !options?.prerelease)) && !isSameFlow) {
+	if ((!prereleaseName || (prereleaseName && !options?.prerelease)) && !isSameFlow) {
 		if (options.tag.includes('patch')) {
 			patch++;
 		}
@@ -52,10 +53,10 @@ export const nextTag = (options: GitNewTagOptions) => {
 
 	if (!options?.prerelease) return 'v' + raw;
 
-	alphaOrBetaValue = alphaOrBetaValue ? 1 + (Number(alphaOrBetaValue) as number) : 0;
+	prereleaseValue = prereleaseValue ? 1 + (Number(prereleaseValue) as number) : 0;
 
-	const isDifferentPreArgument = !alphaOrBeta?.includes(options?.prerelease ?? '');
-	alphaOrBetaValue = isDifferentPreArgument && alphaOrBeta ? 0 : alphaOrBetaValue;
+	const isDifferentPreArgument = !prereleaseName?.includes(options?.prerelease ?? '');
+	prereleaseValue = isDifferentPreArgument && prereleaseName ? 0 : prereleaseValue;
 
-	return 'v' + raw + `-${options.prerelease}.` + alphaOrBetaValue;
+	return 'v' + raw + `-${options.prerelease}.` + prereleaseValue;
 };

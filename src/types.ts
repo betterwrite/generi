@@ -18,7 +18,9 @@ export type GitNewTag =
 	| 'preminor'
 	| 'major'
 	| 'premajor';
-export type GitPrerelease = 'alpha' | 'beta';
+
+export type GitPrerelease = 'alpha' | 'beta' | 'canary';
+
 export interface GitLogOptions {
 	prerelease?: GitPrerelease;
 }

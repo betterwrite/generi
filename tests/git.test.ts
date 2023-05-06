@@ -304,4 +304,13 @@ describe('GIT', () => {
 			})
 		).toEqual('v1.0.0');
 	});
+
+	it('should next tag with premajor to major with canary', () => {
+		expect(
+			nextTag({
+				tag: 'major',
+				last: 'v1.0.0-canary.27',
+			})
+		).toEqual('v1.0.0');
+	});
 });
