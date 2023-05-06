@@ -52,10 +52,10 @@ export const nextTag = (options: GitNewTagOptions) => {
 
 	if (!options?.prerelease) return 'v' + raw;
 
-	alphaOrBetaValue = alphaOrBetaValue ? 1 + (Number(alphaOrBetaValue) as number) : 1;
+	alphaOrBetaValue = alphaOrBetaValue ? 1 + (Number(alphaOrBetaValue) as number) : 0;
 
 	const isDifferentPreArgument = !alphaOrBeta?.includes(options?.prerelease ?? '');
-	alphaOrBetaValue = isDifferentPreArgument && alphaOrBeta ? 1 : alphaOrBetaValue;
+	alphaOrBetaValue = isDifferentPreArgument && alphaOrBeta ? 0 : alphaOrBetaValue;
 
 	return 'v' + raw + `-${options.prerelease}.` + alphaOrBetaValue;
 };

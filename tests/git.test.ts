@@ -127,7 +127,7 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				prerelease: 'alpha',
 			})
-		).toEqual('v0.17.16-alpha.1');
+		).toEqual('v0.17.16-alpha.0');
 	});
 
 	it('should next patch tag with alpha pre-argument', () => {
@@ -147,7 +147,7 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				prerelease: 'alpha',
 			})
-		).toEqual('v0.18.0-alpha.1');
+		).toEqual('v0.18.0-alpha.0');
 	});
 
 	it('should next minor tag with alpha pre-argument', () => {
@@ -167,7 +167,7 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				prerelease: 'alpha',
 			})
-		).toEqual('v1.0.0-alpha.1');
+		).toEqual('v1.0.0-alpha.0');
 	});
 
 	it('should next major tag with alpha pre-argument', () => {
@@ -187,7 +187,7 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				prerelease: 'beta',
 			})
-		).toEqual('v0.17.16-beta.1');
+		).toEqual('v0.17.16-beta.0');
 	});
 
 	it('should next patch tag with beta pre-argument', () => {
@@ -207,7 +207,7 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				prerelease: 'beta',
 			})
-		).toEqual('v0.18.0-beta.1');
+		).toEqual('v0.18.0-beta.0');
 	});
 
 	it('should next minor tag with beta pre-argument', () => {
@@ -227,7 +227,7 @@ describe('GIT', () => {
 				last: 'v0.17.15',
 				prerelease: 'beta',
 			})
-		).toEqual('v1.0.0-beta.1');
+		).toEqual('v1.0.0-beta.0');
 	});
 
 	it('should next major tag with beta pre-argument', () => {
@@ -265,7 +265,7 @@ describe('GIT', () => {
 				last: 'v1.0.0-alpha.27',
 				prerelease: 'beta',
 			})
-		).toEqual('v1.0.0-beta.1');
+		).toEqual('v1.0.0-beta.0');
 	});
 
 	it('should next tag with pre-beta argument to alpha-argument', () => {
@@ -275,7 +275,7 @@ describe('GIT', () => {
 				last: 'v1.0.0-beta.27',
 				prerelease: 'alpha',
 			})
-		).toEqual('v1.0.0-alpha.1');
+		).toEqual('v1.0.0-alpha.0');
 	});
 
 	it('should next tag with prepatch to patch', () => {
