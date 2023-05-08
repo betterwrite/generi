@@ -21,7 +21,7 @@ export const release = (tag: string, autoNotes: boolean = true) => {
 		return;
 	}
 
-	const prerelease = tag.match(/(alpha|beta)/g) ? ['--prerelease'] : [];
+	const prerelease = tag.match(/(alpha|beta|canary)/g) ? ['--prerelease'] : [];
 	const generateNotes = autoNotes ? ['--generate-notes'] : [];
 
 	try {
