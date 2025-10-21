@@ -40,8 +40,8 @@ export const getVersion = (rootPath: string): string | undefined => {
 	return pkg.version
 		? `v${pkg.version}`
 		: lerna.version
-		? `v${lerna.version}`
-		: undefined;
+			? `v${lerna.version}`
+			: undefined;
 };
 
 export const getChangelogRoot = (name: string = 'CHANGELOG.md') => {

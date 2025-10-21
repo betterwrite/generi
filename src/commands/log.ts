@@ -48,7 +48,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 	const last = lerna ? 'v' + destr<Record<string, any>>(lerna).version : lastTag();
 
 	const prerelease = isPrerelease(tag)
-		? options?.git?.prerelease ?? config.prerelease ?? 'beta'
+		? (options?.git?.prerelease ?? config.prerelease ?? 'beta')
 		: undefined;
 
 	const next = nextTag({
