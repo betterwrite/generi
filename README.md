@@ -14,9 +14,10 @@ A Versioning Generator for JavaScript Projects.
 <br>
 <br>
 
-- ✅ Easy CL
+- ✅ Easy CLI
 - ✅ Monorepo support with [Lerna](https://lerna.js.org/)
 - ✅ Release support with [Github CLI](https://cli.github.com/)
+- ✅ Supports Node v18+
 
 ### Install
 
