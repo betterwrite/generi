@@ -7,6 +7,7 @@ import { getGeneriConfig } from '../generi';
 import { publish } from '../npm';
 import { nextTag } from '../tag';
 import { release } from '../release';
+import { destr } from 'destr';
 
 const validateLog = (tag: GitNewTag) => {
 	const commits = newCommits();
@@ -44,7 +45,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	const lerna = getFile(getLernaRoot());
 
-	const last = lerna ? 'v' + JSON.parse(lerna).version : lastTag();
+	const last = lerna ? 'v' + destr<Record<string, any>>(lerna).version : lastTag();
 
 	const prerelease = isPrerelease(tag)
 		? options?.git?.prerelease ?? config.prerelease ?? 'beta'

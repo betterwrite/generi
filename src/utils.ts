@@ -4,6 +4,7 @@ import path from 'path';
 import { error } from './console';
 import { isCleanChanges } from './git';
 import { GitNewTag } from './types';
+import { destr } from 'destr';
 
 export const getRoot = () => {
 	return process.cwd();
@@ -29,9 +30,11 @@ export const getVersion = (rootPath: string): string | undefined => {
 	const pkgPath = path.join(rootPath, 'package.json');
 	const lernaPath = path.join(rootPath, 'lerna.json');
 
-	const pkg = fs.existsSync(pkgPath) ? JSON.parse(fs.readFileSync(pkgPath) as any) : {};
+	const pkg = fs.existsSync(pkgPath)
+		? destr<Record<string, any>>(fs.readFileSync(pkgPath) as any)
+		: {};
 	const lerna = fs.existsSync(lernaPath)
-		? JSON.parse(fs.readFileSync(lernaPath) as any)
+		? destr<Record<string, any>>(fs.readFileSync(lernaPath) as any)
 		: {};
 
 	return pkg.version
@@ -70,7 +73,7 @@ export const setChangelog = (content: string) => {
 };
 
 export const getPackage = () => {
-	return JSON.parse(getFile(getPackageRoot()));
+	return destr(getFile(getPackageRoot()));
 };
 
 export const isChangesForCommit = (git: boolean) => {

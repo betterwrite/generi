@@ -1,6 +1,7 @@
 import { GeneriOptions } from './types';
 import { getConfigRoot, setFile, getFile } from './utils';
 import { success } from './console';
+import { destr } from 'destr';
 
 export const isSilent = () => getGeneriConfig().silent;
 export const isTag = () => getGeneriConfig().tag;
@@ -15,5 +16,5 @@ export const setGeneriConfig = (config: GeneriOptions) => {
 };
 
 export const getGeneriConfig = (): GeneriOptions => {
-	return JSON.parse(getFile(getConfigRoot()));
+	return destr<GeneriOptions>(getFile(getConfigRoot()));
 };

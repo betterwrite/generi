@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "consola": "^3.4.2",
+    "destr": "^2.0.5",
     "execa": "^5.1.1",
     "gradient-string": "^3.0.0",
     "sade": "^1.8.1"

@@ -6,6 +6,7 @@ import path from 'path';
 import execa from 'execa';
 import { getGeneriConfig } from './generi';
 import { isChangesForCommit } from './utils';
+import { destr } from 'destr';
 
 export const isGit = () => {
 	return fs.existsSync(path.resolve(getRoot(), '.git'));
@@ -110,8 +111,11 @@ export const setVersion = (
 		}
 
 		//if lerna version has no previous workspace changes, it does not execute any command to change the version.
-		if (JSON.parse(lerna).version === JSON.parse(getFile(getLernaRoot())).version) {
-			const _lerna = JSON.parse(lerna);
+		if (
+			destr<Record<string, any>>(lerna).version ===
+			destr<Record<string, any>>(getFile(getLernaRoot())).version
+		) {
+			const _lerna = destr<Record<string, any>>(lerna);
 			_lerna.version = normalize;
 
 			setFile(getLernaRoot(), _lerna);
@@ -126,7 +130,7 @@ export const setVersion = (
 			return;
 		}
 
-		pkg = JSON.parse(pkg);
+		pkg = destr(pkg);
 
 		if (pkg.version) {
 			pkg.version = normalize;
