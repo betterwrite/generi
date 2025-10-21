@@ -110,12 +110,12 @@ export const setVersion = (
 			error(`Could not execute <lerna version ${tag}> command`);
 		}
 
-		//if lerna version has no previous workspace changes, it does not execute any command to change the version.
-		if (
-			destr<Record<string, any>>(lerna).version ===
-			destr<Record<string, any>>(getFile(getLernaRoot())).version
-		) {
-			const _lerna = destr<Record<string, any>>(lerna);
+		const lernaPrev = destr<Record<string, any>>(lerna);
+		const lernaPost = destr<Record<string, any>>(getFile(getLernaRoot()));
+
+		// if lerna version has no previous workspace changes, it does not execute any command to change the version.
+		if (lernaPrev.version === lernaPost.version) {
+			const _lerna = lernaPrev;
 			_lerna.version = normalize;
 
 			setFile(getLernaRoot(), _lerna);
