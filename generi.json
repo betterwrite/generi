@@ -9,8 +9,6 @@
   "publish": false,
   "exclude": [" typo"],
   "prerelease": "beta",
-  "cwd": false,
 	"packagePath": false,
-	"lernaPath": false,
-	"generiPath": false
+	"lernaPath": false
 }
