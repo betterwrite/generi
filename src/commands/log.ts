@@ -23,7 +23,7 @@ const validateLog = (tag: GitNewTag) => {
 	}
 
 	if (!isValidTag(tag)) {
-		error('Invalid Tag. Use patch|minor|major');
+		error('Invalid Tag. Use patch|prepatch|minor|preminor|major|premajor');
 		return false;
 	}
 
