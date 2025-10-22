@@ -39,7 +39,10 @@
     "test": "vitest run --coverage",
     "test:dev": "vitest",
     "format": "prettier --write src/ tests/",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "pnpm build",
+    "patch": "node dist/index.js log patch",
+    "minor": "node dist/index.js log minor",
+    "major": "node dist/index.js log major"
   },
   "bin": {
     "generi": "dist/index.js"
