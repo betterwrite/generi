@@ -5,15 +5,11 @@ import { error } from './console';
 import { isCleanChanges } from './git';
 import { GitNewTag } from './types';
 import { destr } from 'destr';
-import { getGeneriConfig } from './generi';
+import { lernaConfig, pkgConfig } from './generi';
 
 export const getRoot = (): string => {
-	return getGeneriConfig().cwd || process.cwd();
+	return process.cwd();
 };
-
-const pkgConfig = getGeneriConfig().packagePath || 'package.json';
-const lernaConfig = getGeneriConfig().lernaPath || 'lerna.json';
-const generiConfig = getGeneriConfig().generiPath || 'generi.json';
 
 export const getPackageRoot = (p: string = pkgConfig) => {
 	return path.join(getRoot(), p);
@@ -23,7 +19,7 @@ export const getLernaRoot = (p: string = lernaConfig) => {
 	return path.join(getRoot(), p);
 };
 
-export const getConfigRoot = (p: string = generiConfig) => {
+export const getConfigRoot = (p: string = 'generi.json') => {
 	return path.join(getRoot(), p);
 };
 

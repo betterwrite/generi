@@ -8,5 +8,9 @@
   "release": true,
   "publish": true,
   "exclude": [" typo"],
-  "prerelease": "beta"
+  "prerelease": "beta",
+  "cwd": false,
+	"packagePath": false,
+	"lernaPath": false,
+	"generiPath": false
 }

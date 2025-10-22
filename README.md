@@ -98,10 +98,6 @@ Invalidates commits in CHANGELOG.md that contain the considered options
 
 Default 'canary', 'beta' or 'alpha' argument for prerelease log command
 
-##### `cwd` Default: `process.cwd()`
-
-CWD for cli load config files
-
 #### `packagePath` Default `./package.json` */
 
 A custom package.json file
@@ -109,7 +105,3 @@ A custom package.json file
 #### `lernaPath` Default `./lerna.json` */
 
 A custom lerna.json file
-
-#### `generiPath` Default `./generi.json` */
-
-A custom generi.json file
