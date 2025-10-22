@@ -1,3 +1,5 @@
+export type Maybe<T> = T | undefined | null | false;
+
 export interface Commit {
 	sha: string;
 	refName: string[];
@@ -67,6 +69,18 @@ export interface GeneriOptions {
 
 	/* default 'beta' or 'alpha' argument for pre(patch|minor|major) log command */
 	prerelease?: GitPrerelease;
+
+	/* default process.cwd() */
+	cwd?: Maybe<string>;
+
+	/* package.json custom path. default option.cwd + ./package.json */
+	packagePath?: Maybe<string>;
+
+	/* lerna.json custom path. default option.cwd + ./lerna.json */
+	lernaPath?: Maybe<string>;
+
+	/* generi.json custom path. default option.cwd + ./generi.json */
+	generiPath?: Maybe<string>;
 }
 
 export type GeneriConventionalCommits =

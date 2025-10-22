@@ -7,8 +7,8 @@ export const getGeneri = (): GeneriOptions => {
 	return destr<GeneriOptions>(getFile(getConfigRoot()));
 };
 
-const config = getGeneri();
 export const getGeneriConfig = () => config;
+const config = getGeneri();
 
 export const isSilent = () => config.silent;
 export const isTag = () => config.tag;

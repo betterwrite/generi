@@ -5,20 +5,25 @@ import { error } from './console';
 import { isCleanChanges } from './git';
 import { GitNewTag } from './types';
 import { destr } from 'destr';
+import { getGeneriConfig } from './generi';
 
-export const getRoot = () => {
-	return process.cwd();
+export const getRoot = (): string => {
+	return getGeneriConfig().cwd || process.cwd();
 };
 
-export const getPackageRoot = (p: string = 'package.json') => {
+const pkgConfig = getGeneriConfig().packagePath || 'package.json';
+const lernaConfig = getGeneriConfig().lernaPath || 'lerna.json';
+const generiConfig = getGeneriConfig().generiPath || 'generi.json';
+
+export const getPackageRoot = (p: string = pkgConfig) => {
 	return path.join(getRoot(), p);
 };
 
-export const getLernaRoot = (p: string = 'lerna.json') => {
+export const getLernaRoot = (p: string = lernaConfig) => {
 	return path.join(getRoot(), p);
 };
 
-export const getConfigRoot = (p: string = 'generi.json') => {
+export const getConfigRoot = (p: string = generiConfig) => {
 	return path.join(getRoot(), p);
 };
 
@@ -26,9 +31,9 @@ export const getRootPath = () => {
 	return execa.sync('git', ['rev-parse', '--show-toplevel'], { cwd: getRoot() }).stdout;
 };
 
-export const getVersion = (rootPath: string): string | undefined => {
-	const pkgPath = path.join(rootPath, 'package.json');
-	const lernaPath = path.join(rootPath, 'lerna.json');
+export const getVersion = (): string | undefined => {
+	const pkgPath = getPackageRoot();
+	const lernaPath = getLernaRoot();
 
 	const pkg = fs.existsSync(pkgPath)
 		? destr<Record<string, any>>(fs.readFileSync(pkgPath) as any)
