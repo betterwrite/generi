@@ -1,8 +1,8 @@
 import { success, error, info } from './console';
 import { Commit, GitNewTag, GitPrerelease } from './types';
 import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
-import fs from 'fs';
-import path from 'path';
+import fs from 'fs-extra';
+import path from 'pathe';
 import execa from 'execa';
 import { getGeneriConfig } from './generi';
 import { isChangesForCommit } from './utils';

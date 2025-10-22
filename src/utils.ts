@@ -1,6 +1,6 @@
-import fs from 'fs';
+import fs from 'fs-extra';
 import execa from 'execa';
-import path from 'path';
+import path from 'pathe';
 import { error } from './console';
 import { isCleanChanges } from './git';
 import { GitNewTag } from './types';
