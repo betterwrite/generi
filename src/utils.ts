@@ -3,7 +3,7 @@ import execa from 'execa';
 import path from 'pathe';
 import { error } from './console';
 import { isCleanChanges } from './git';
-import { GitNewTag } from './types';
+import { GitNewTag, Maybe } from './types';
 import { destr } from 'destr';
 import { lernaConfig, pkgConfig } from './generi';
 
@@ -59,7 +59,7 @@ export const existsConfig = () => {
 
 export const getFile = (path: string): any => {
 	try {
-		return fs.readFileSync(path);
+		return fs.readFileSync(path).toString();
 	} catch (e) {
 		return false;
 	}
