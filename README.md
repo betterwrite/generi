@@ -98,10 +98,10 @@ Invalidates commits in CHANGELOG.md that contain the considered options
 
 Default 'canary', 'beta' or 'alpha' argument for prerelease log command
 
-#### `packagePath` Default `./package.json` */
+#### `packagePath` Default `package.json`
 
-A custom package.json file
+A custom package.json path. Example: ./foo/bar/package.json
 
-#### `lernaPath` Default `./lerna.json` */
+#### `lernaPath` Default `lerna.json`
 
-A custom lerna.json file
+A custom lerna.json path. Example: ./foo/bar/lerna.json
