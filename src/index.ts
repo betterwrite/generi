@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -vS zx
 
 import sade from 'sade';
 

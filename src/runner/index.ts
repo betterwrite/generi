@@ -1,3 +1,4 @@
+#!/usr/bin/env zx
 import type { Awaitable, GitLogOptions, GitNewTag } from '../types';
 
 import * as _log from '../commands/log';
