@@ -16,7 +16,7 @@ export const log = (tag: GitNewTag, git: GitLogOptions = {}): Awaitable<void> =>
 	});
 };
 
-export const init = (tag: GitNewTag, git: GitLogOptions = {}): Awaitable<void> => {
+export const init = (): Awaitable<void> => {
 	return new Promise(async (res, rej) => {
 		try {
 			await _init.setup();
@@ -28,7 +28,7 @@ export const init = (tag: GitNewTag, git: GitLogOptions = {}): Awaitable<void> =
 	});
 };
 
-export const revert = (tag: GitNewTag, git: GitLogOptions = {}): Awaitable<void> => {
+export const revert = (): Awaitable<void> => {
 	return new Promise(async (res, rej) => {
 		try {
 			await _revert.setup();

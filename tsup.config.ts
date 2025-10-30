@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
 	entry: {
     index: 'src/index.ts',
-    code: 'src/code/index.ts',
+    'runner/index': 'src/runner/index.ts',
   },
 	target: ['node18'],
   minify: true,

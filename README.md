@@ -58,17 +58,18 @@ Revert `generi log` last command
 
 Monorepo versions may depend on external tools. Given this, Generi supports lerna workspaces, using the command `lerna version` before creating the changelog. In other setups, we recommend disabling the `tag` and `version` options.
 
-### Code
+### Runner
 
 Use generi in .js|.ts files programatically
 
 ```ts
-import * as generi from 'generi/code.js'
+import * as generi from 'generi/runner'
 
+// ...
 generi.init().then(async () => {
   await generi.log('patch')
 
-  // code here
+  // ...
 })
 ```
 
