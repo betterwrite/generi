@@ -91,5 +91,5 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	if (config?.release) release(next, true);
 
-	if (config?.publish) publish(next, lerna);
+	if (config?.publish) publish(next, lerna, next);
 };
