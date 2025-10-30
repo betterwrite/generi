@@ -2,7 +2,7 @@
 
 import sade from 'sade';
 
-import { GitLogOptions, GitNewTag } from './types';
+import type { GitLogOptions, GitNewTag } from './types';
 
 import * as init from './commands/init';
 import * as log from './commands/log';

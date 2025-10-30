@@ -34,8 +34,8 @@
   ],
   "scripts": {
     "dev": "pnpm build && node .",
-    "build": "tsup src/index.ts --minify --clean",
-    "build:watch": "tsup src/index.ts --minify --clean --watch",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
     "test": "vitest run --coverage",
     "test:dev": "vitest",
     "format": "prettier --write src/ tests/",

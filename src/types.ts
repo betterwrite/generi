@@ -1,4 +1,5 @@
 export type Maybe<T> = T | undefined | null | false;
+export type Awaitable<T = void> = T | Promise<T>;
 
 export interface Commit {
 	sha: string;
