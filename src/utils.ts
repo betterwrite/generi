@@ -1,13 +1,14 @@
 import fs from 'fs-extra';
-import execa from 'execa';
 import path from 'pathe';
 import { error } from './console';
 import { isCleanChanges } from './git';
-import { GitNewTag, Maybe } from './types';
+import { GitNewTag } from './types';
 import { destr } from 'destr';
 import { lernaConfig, pkgConfig } from './generi';
+import { $ } from 'zx/core';
 
 export const getRoot = (): string => {
+	// TODO: dynamic cwd
 	return process.cwd();
 };
 
@@ -24,7 +25,10 @@ export const getConfigRoot = (p: string = 'generi.json') => {
 };
 
 export const getRootPath = () => {
-	return execa.sync('git', ['rev-parse', '--show-toplevel'], { cwd: getRoot() }).stdout;
+	$.cwd = getRoot();
+	const stdout = $.sync`git rev-parse --show-toplevel`.stdout;
+	$.cwd = process.cwd();
+	return stdout;
 };
 
 export const getVersion = (): string | undefined => {

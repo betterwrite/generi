@@ -1,4 +1,4 @@
-import execa from 'execa';
+import { $ } from 'zx';
 import { info, success, error } from './console';
 
 export const publish = (target: string, lerna?: boolean) => {
@@ -6,19 +6,13 @@ export const publish = (target: string, lerna?: boolean) => {
 
 	if (lerna) {
 		try {
-			execa.sync('lerna', [
-				'publish',
-				"'from-package'",
-				'--yes',
-				'--no-push',
-				'--force-publish',
-			]);
+			$.sync`lerna publish 'from-package' --yes --no-push --force-publish`;
 		} catch (e) {
 			error('Unable to publish the package in NPM with <lerna publish> command!');
 		}
 	} else {
 		try {
-			execa.sync('npm', ['publish']);
+			$.sync`npm publish`;
 		} catch (e) {
 			error('Unable to publish the package in NPM!');
 		}
