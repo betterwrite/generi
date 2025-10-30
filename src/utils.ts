@@ -1,3 +1,4 @@
+import { $ } from 'zx';
 import fs from 'fs-extra';
 import path from 'pathe';
 import { error } from './console';
@@ -5,7 +6,6 @@ import { isCleanChanges } from './git';
 import { GitNewTag } from './types';
 import { destr } from 'destr';
 import { lernaConfig, pkgConfig } from './generi';
-import { $ } from 'zx/core';
 
 export const getRoot = (): string => {
 	// TODO: dynamic cwd

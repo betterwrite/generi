@@ -1,3 +1,4 @@
+import { $ } from 'zx';
 import { success, error, info } from './console';
 import { Commit, GitNewTag, GitPrerelease } from './types';
 import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
@@ -6,7 +7,6 @@ import path from 'pathe';
 import { getGeneriConfig } from './generi';
 import { isChangesForCommit } from './utils';
 import { destr } from 'destr';
-import { $ } from 'zx';
 
 export const isGit = () => {
 	return fs.existsSync(path.resolve(getRoot(), '.git'));
