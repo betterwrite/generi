@@ -5,7 +5,7 @@ export default defineConfig({
     index: 'src/index.ts',
     'runner/index': 'src/runner/index.ts',
   },
-	target: ['node18'],
+	target: ['node20'],
   minify: true,
 	clean: true,
 	dts: true
