@@ -1,12 +1,12 @@
 import { vice } from 'gradient-string';
 import { isSilent } from './generi';
+import { getPackage } from './utils';
 import consola from 'consola';
-import pkg from '../package.json';
 
 export const getHeader = (command: string) => {
 	if (isSilent()) return;
 
-	const title = `Generi ${pkg.version} | ${command}`;
+	const title = `Generi ${getPackage().version} | ${command}`;
 	consola.log(vice(title));
 	consola.log(vice('■'.repeat(title.length)));
 	consola.log('\n');
