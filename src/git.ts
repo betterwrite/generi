@@ -31,7 +31,7 @@ export const parseCommitSummary = (commit: Commit) => {
 
 export const commits = (): Commit[] => {
 	return execa
-		.sync('git', ['log', '--oneline --pretty=hash<%h> ref<%D> message<%s> date<%cd>'])
+		.sync('git', ['log', '--oneline', '--pretty=hash<%h> ref<%D> message<%s> date<%cd>'])
 		.stdout.split('\n')
 		.map(parseLogMessage);
 };
