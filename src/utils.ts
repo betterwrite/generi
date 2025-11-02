@@ -1,4 +1,4 @@
-import { $ } from 'zx';
+import execa from 'execa';
 import fs from 'fs-extra';
 import path from 'pathe';
 import { error } from './console';
@@ -25,10 +25,7 @@ export const getConfigRoot = (p: string = 'generi.json') => {
 };
 
 export const getRootPath = () => {
-	$.cwd = getRoot();
-	const stdout = $.sync`git rev-parse --show-toplevel`.stdout;
-	$.cwd = process.cwd();
-	return stdout;
+	return execa.sync('git', ['rev-parse', '--show-toplevel'], { cwd: getRoot() }).stdout;
 };
 
 export const getVersion = (): string | undefined => {

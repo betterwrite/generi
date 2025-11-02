@@ -1,4 +1,4 @@
-import { $ } from 'zx';
+import execa from 'execa';
 import { success, error, info } from './console';
 import { Commit, GitNewTag, GitPrerelease } from './types';
 import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
@@ -30,8 +30,9 @@ export const parseCommitSummary = (commit: Commit) => {
 };
 
 export const commits = (): Commit[] => {
-	return $.sync`git log --oneline --pretty=hash<%h> ref<%D> message<%s> date<%cd>`.stdout
-		.split('\n')
+	return execa
+		.sync('git', ['log', '--oneline --pretty=hash<%h> ref<%D> message<%s> date<%cd>'])
+		.stdout.split('\n')
 		.map(parseLogMessage);
 };
 
@@ -39,7 +40,7 @@ export const lastTag = (): string => {
 	let last;
 
 	try {
-		last = $.sync`git describe --abbrev=0 --tags`;
+		last = execa.sync('git', ['describe', '--abbrev=0', '--tags']);
 	} catch (e) {}
 	if (!last) {
 		error('Unable to fetch the last tag. First use the generi init command');
@@ -93,13 +94,23 @@ export const setVersion = (
 		try {
 			const asPrerelease = prerelease ? ['--preid', prerelease] : [];
 
-			$.sync`lerna version ${tag} ${asPrerelease.join(' ')} --no-private --no-changelog --no-git-tag-version --no-push --yes --force-publish`;
+			execa.sync('lerna', [
+				'version',
+				tag,
+				...asPrerelease,
+				'--no-private',
+				'--no-changelog',
+				'--no-git-tag-version',
+				'--no-push',
+				'--yes',
+				'--force-publish',
+			]);
 		} catch (e) {
 			error(`Could not execute <lerna version ${tag}> command`);
 		}
 
-		const lernaPrev = destr<Record<string, any>>(lerna);
-		const lernaPost = destr<Record<string, any>>(getFile(getLernaRoot()));
+		const lernaPrev = destr<Record<string, unknown>>(lerna);
+		const lernaPost = destr<Record<string, unknown>>(getFile(getLernaRoot()));
 
 		// if lerna version has no previous workspace changes, it does not execute any command to change the version.
 		if (lernaPrev.version === lernaPost.version) {
@@ -148,14 +159,14 @@ export const setVersion = (
 };
 
 export const setTag = (target: string) => {
-	const tags = $.sync`git tag -n`;
+	const tags = execa.sync('git', ['tag', '-n']);
 
 	if (tags.stdout?.includes(target)) {
 		error('Tag already exists!');
 		return;
 	}
 
-	const tag = $.sync`git tag ${target}`;
+	const tag = execa.sync('git', ['tag', target]);
 
 	if (!tag) {
 		error('Tag already exists!');
@@ -166,7 +177,7 @@ export const setTag = (target: string) => {
 };
 
 export const initGit = () => {
-	const init = $.sync`git init`;
+	const init = execa.sync('git', ['init']);
 
 	if (!init) {
 		error('Git is not installed.');
@@ -175,19 +186,19 @@ export const initGit = () => {
 
 	success('Initialized Git Project');
 
-	$.sync`git add -A`;
+	execa.sync('git', ['add', '-A']);
 
 	success('Added All Staged Changes');
 
-	$.sync`git commit -m "chore(changelog): initial content"`;
+	execa.sync('git', ['commit', '-m', 'chore(changelog): initial content']);
 
 	success('Commit Initial Content With Message: chore(changelog): initial content');
 };
 
 export const setCommit = (message: string, log = true) => {
-	$.sync`git add -A`;
+	execa.sync('git', ['add', '-A']);
 
-	$.sync`git commit -m "${message}"`;
+	execa.sync('git', ['commit', '-m', message]);
 
 	if (log) success('Commit With Message: ' + message);
 };
@@ -197,11 +208,11 @@ export const pushCommits = () => {
 
 	info(`Pushing...`);
 
-	const target = $.sync`git branch --show`;
+	const target = execa.sync('git', ['branch', '--show']);
 
-	$.sync`git push origin ${target?.stdout || 'main'}`;
+	execa.sync('git', ['push', 'origin', target?.stdout || 'main']);
 
-	$.sync`git push --tags`;
+	execa.sync('git', ['push', '--tags']);
 
 	success('Success in Push!');
 };
@@ -218,18 +229,19 @@ export const revertAll = () => {
 
 	const tag = lastTag();
 
-	$.sync`git reset HEAD~1`;
+	execa.sync('git', ['reset', 'HEAD~1']);
 
-	$.sync`git tag --delete ${tag}`;
+	execa.sync('git', ['tag', '--delete', tag]);
 
-	$.sync`git checkout .`;
+	execa.sync('git', ['checkout', '.']);
+	``;
 
 	success(`Success in revert ${tag} tag!`);
 };
 
 export const verifyExistentRemote = () => {
 	try {
-		$.sync`git remote -v`;
+		execa.sync('git', ['remote', '-v']);
 	} catch (e) {
 		return false;
 	}
@@ -249,7 +261,7 @@ export const isValidTag = (tag: GitNewTag) => {
 };
 
 export const isCleanChanges = (): boolean => {
-	const changes = $.sync`git diff HEAD`;
+	const changes = execa.sync('git', ['diff', 'HEAD']);
 
 	return !changes.stdout;
 };

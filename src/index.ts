@@ -1,4 +1,4 @@
-#!/usr/bin/env -vS zx
+#!/usr/bin/env node
 
 import sade from 'sade';
 
@@ -8,7 +8,6 @@ import * as init from './commands/init';
 import * as log from './commands/log';
 import * as revert from './commands/revert';
 import * as test from './commands/test';
-import 'zx/globals'
 
 (async function () {
 	const prog = sade('generi');

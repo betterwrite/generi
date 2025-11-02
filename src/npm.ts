@@ -1,4 +1,4 @@
-import { $ } from 'zx';
+import execa from 'execa';
 import { info, success, error } from './console';
 import { getManager } from './monorepo';
 import { lastTag } from './git';
@@ -8,7 +8,13 @@ export const publish = (target: string, lerna?: boolean, tag: string = lastTag()
 
 	if (lerna) {
 		try {
-			$.sync`lerna publish 'from-package' --yes --no-push --force-publish`;
+			execa.sync('lerna', [
+				'publish',
+				"'from-package'",
+				'--yes',
+				'--no-push',
+				'--force-publish',
+			]);
 		} catch (e) {
 			error('Unable to publish the package in NPM with <lerna publish> command!');
 		}
@@ -17,8 +23,16 @@ export const publish = (target: string, lerna?: boolean, tag: string = lastTag()
 			const { isPnpmWorkspace, tool } = getManager();
 
 			isPnpmWorkspace && tool === 'pnpm'
-				? $.sync`pnpm -r publish --access public --no-git-checks --tag ${tag}`
-				: $.sync`npm publish`;
+				? execa.sync('pnpm', [
+						'-r',
+						'publish',
+						'--access',
+						'public',
+						'--no-git-checks',
+						'--tag',
+						tag,
+					])
+				: execa.sync('npm', ['publish']);
 		} catch (e) {
 			error('Unable to publish the package in NPM!');
 		}
