@@ -74,7 +74,7 @@ export const setChangelog = (content: string) => {
 	fs.writeFileSync(getChangelogRoot(), content, { encoding: 'utf-8' });
 };
 
-export const getPackage = () => {
+export const getPackage = (): Record<string, unknown> => {
 	return destr(getFile(getPackageRoot()));
 };
 

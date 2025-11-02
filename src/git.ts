@@ -36,6 +36,14 @@ export const commits = (): Commit[] => {
 		.map(parseLogMessage);
 };
 
+export const existsTag = (): boolean => {
+	try {
+		return !!execa.sync('git', ['describe', '--abbrev=0', '--tags']);
+	} catch (e) {
+		return false;
+	}
+};
+
 export const lastTag = (): string => {
 	let last;
 
