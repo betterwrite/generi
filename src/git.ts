@@ -88,7 +88,7 @@ export const getTagCommit = (commit: Commit) => {
 	return commit.refName.filter((ref) => ref.includes('tag'))[0].replace('tag: ', '');
 };
 
-export const setVersion = (
+export const setVersion = async (
 	target: string,
 	{ config, console }: Root,
 	tag: GitNewTag,
@@ -140,18 +140,20 @@ export const setVersion = (
 				? workspace.packages
 				: ['./packages/*/package.json'];
 
-		glob(['package.json', ...targets], {
+		const packages = await glob(['package.json', ...targets], {
 			expandDirectories: false,
-      fs
-		}).then(async (packages) => {
-			await versionBump({
-				files: packages,
-				commit: false,
-				push: false,
-				tag: false,
-				confirm: false,
-				noVerify: true,
-			});
+			fs,
+		});
+
+		await versionBump({
+			files: packages,
+			release: tag,
+			commit: false,
+			push: false,
+			tag: false,
+			confirm: false,
+			noVerify: true,
+			printCommits: false,
 		});
 	}
 };

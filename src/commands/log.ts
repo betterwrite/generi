@@ -23,7 +23,7 @@ const validateLog = (tag: GitNewTag, console: GeneriConsole) => {
 };
 
 export const setup = (tag: GitNewTag, options: LogOptions) => {
-	getGeneri().then(({ config, console }) => {
+	getGeneri().then(async ({ config, console }) => {
 		if (!tag) {
 			console.error('Insert valid git tag.');
 
@@ -78,7 +78,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 		if (config.version) {
 			console.success(`${last} to ${next} (${tag.toUpperCase()})`);
 
-			setVersion(next, { console, config }, tag, prerelease);
+			await setVersion(next, { console, config }, tag, prerelease);
 		}
 
 		createChangelog(!config.version ? lastTag() : next, { config, console });
