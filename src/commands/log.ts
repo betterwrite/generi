@@ -39,7 +39,7 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 				'generi.json file is not supported in v2. New format in documentation.'
 			);
 
-		if (!exists('./generi.config.ts') || !exists('./generi.config.js'))
+		if (!exists('./generi.config.ts') && !exists('./generi.config.js'))
 			console.warning('generi.config was not found, default config loaded.');
 
 		const lerna = getFile(getFileRoot(config.lernaPath));
