@@ -3,7 +3,7 @@ export default {
 	commits: "none",
 	tag: true,
 	version: true,
-	push: false,
+	push: true,
 	publish: false,
 	release: false,
 	exclude: [" typo"],
