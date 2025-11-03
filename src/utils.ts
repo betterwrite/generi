@@ -41,10 +41,6 @@ export const existsChangelog = () => {
 	return fs.existsSync(getChangelogRoot());
 };
 
-export const existsConfig = () => {
-	return fs.existsSync(getFileRoot());
-};
-
 export const getFile = (path: string): any => {
 	try {
 		return fs.readFileSync(path).toString();
