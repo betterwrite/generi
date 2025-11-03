@@ -7,6 +7,7 @@ import type { Commit, GeneriConsole, GitNewTag, GitPrerelease, Root } from './ty
 import { getRoot, setFile, getFile, getFileRoot } from './utils';
 import { isChangesForCommit } from './utils';
 import { destr } from 'destr';
+import { getPNPMWorkspace } from './monorepo';
 
 export const isGit = () => {
 	return fs.existsSync(path.resolve(getRoot(), '.git'));
@@ -133,8 +134,13 @@ export const setVersion = (
 
 		console.success('Set ' + target + ' Version In Lerna Monorepos!');
 	} else {
-		// TODO: custom pnpm-workspace.yaml packages list
-		glob(['package.json', './packages/*/package.json'], {
+		const workspace = getPNPMWorkspace();
+		const targets =
+			workspace && workspace.packages
+				? workspace.packages
+				: ['./packages/*/package.json'];
+
+		glob(['package.json', ...targets], {
 			expandDirectories: false,
 		}).then(async (packages) => {
 			await versionBump({
