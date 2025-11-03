@@ -23,15 +23,14 @@ export const getVersion = (config: GeneriOptions): string | undefined => {
 	const pkg = fs.existsSync(config.packagePath)
 		? destr<Record<string, any>>(fs.readFileSync(config.packagePath))
 		: {};
+
+	if (pkg?.version) return `v${pkg.version}`;
+
 	const lerna = fs.existsSync(config.lernaPath)
 		? destr<Record<string, any>>(fs.readFileSync(config.lernaPath))
 		: {};
 
-	return pkg.version
-		? `v${pkg.version}`
-		: lerna.version
-			? `v${lerna.version}`
-			: undefined;
+	return lerna?.version ? `v${lerna.version}` : undefined;
 };
 
 export const getChangelogRoot = (name: string = 'CHANGELOG.md') => {
