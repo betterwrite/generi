@@ -1,7 +1,7 @@
 import { createChangelog } from '../changelog';
 import type { GeneriConsole, GitNewTag, GitPrerelease, LogOptions } from '../types';
 import { lastTag, setVersion, setTag, newCommits, isValidTag, pushCommits } from '../git';
-import { exists, existsConfig, getFile, getFileRoot, isPrerelease } from '../utils';
+import { exists, getFile, getFileRoot, isPrerelease } from '../utils';
 import { getGeneri } from '../generi';
 import { publish } from '../npm';
 import { nextTag } from '../tag';
@@ -10,10 +10,6 @@ import { destr } from 'destr';
 
 const validateLog = (tag: GitNewTag, console: GeneriConsole) => {
 	const commits = newCommits();
-
-	if (!existsConfig()) {
-		console.error('Generi not exists! Use <generi init> command instead.');
-	}
 
 	if (commits.length < 1) {
 		console.error('There are no valid commits to create a new release.');
