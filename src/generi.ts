@@ -11,11 +11,26 @@ export const getGeneri = async () => {
 		defaultConfig,
 	});
 
+	const csl = _console(config);
+
 	try {
-		if (!config.repository) config.repository = getRemoteOrigin() || 'https:';
+		if (
+			config.repository &&
+			(config.repository === 'force' || config.repository !== 'ignore')
+		) {
+			const remote = getRemoteOrigin();
+
+			config.repository = remote || 'ignore';
+
+			if (!remote) {
+				csl.warning(
+					`config.repository force source could not be found. 'repository' will be ignored.`
+				);
+			}
+		}
 	} catch (e) {
 		// TODO: target others repo url
 	}
 
-	return { config, console: _console(config) };
+	return { config, console: csl };
 };

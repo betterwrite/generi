@@ -137,9 +137,9 @@ Push commits in actually branch after log
 
 Publish(NPM) package in final log
 
-##### `repository` Default: `undefined`
+##### `repository` Default: `force`
 
-A URL to git repository for sha256 open link
+A URL to git repository for sha256 open link. 'ignore' option skip all repository loads and 'force' option get remote origin. repository https: charges normally.
 
 ##### `exclude` Default: `[" typo"]`
 
