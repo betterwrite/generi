@@ -1,9 +1,11 @@
 import execa from 'execa';
-import { success, error, info } from './console';
-import { Commit, GitNewTag, GitPrerelease } from './types';
-import { getRoot, setFile, getFile, getPackageRoot, getLernaRoot } from './utils';
 import fs from 'fs-extra';
 import path from 'pathe';
+import { versionBump } from 'bumpp';
+import { glob } from 'tinyglobby';
+import { success, error, info } from './console';
+import type { Commit, GitNewTag, GitPrerelease } from './types';
+import { getRoot, setFile, getFile, getLernaRoot } from './utils';
 import { getGeneriConfig } from './generi';
 import { isChangesForCommit } from './utils';
 import { destr } from 'destr';
@@ -130,39 +132,19 @@ export const setVersion = (
 
 		success('Set ' + target + ' Version In Lerna Monorepos!');
 	} else {
-		let pkg = getFile(getPackageRoot());
-
-		if (!pkg) {
-			error('<package.json> not exists!');
-			return;
-		}
-
-		pkg = destr(pkg);
-
-		if (pkg.version) {
-			pkg.version = normalize;
-		} else {
-			if (pkg.name) {
-				const name = pkg.name;
-
-				delete pkg['name'];
-
-				pkg = {
-					name,
-					version: normalize,
-					...pkg,
-				};
-			} else {
-				pkg = {
-					version: normalize,
-					...pkg,
-				};
-			}
-		}
-
-		setFile('package.json', pkg);
-
-		success('Set ' + pkg.version + ' Version In package.json');
+		// TODO: custom pnpm-workspace.yaml packages list
+		glob(['package.json', './packages/*/package.json'], {
+			expandDirectories: false,
+		}).then(async (packages) => {
+			await versionBump({
+				files: packages,
+				commit: false,
+				push: false,
+				tag: false,
+				confirm: false,
+				noVerify: true,
+			});
+		});
 	}
 };
 
