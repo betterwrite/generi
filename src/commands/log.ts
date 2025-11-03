@@ -60,7 +60,9 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 	let target = lerna ? lerna : pkg;
 
-	const last = 'v' + destr<Record<string, any>>(target).version;
+  const version = destr<Record<string, any>>(target)?.version
+  if(!version) error('version in lerna.json or package.json not found!')
+	const last = 'v' + version;
 
 	const prerelease = isPrerelease(tag)
 		? (options?.git?.prerelease ?? config.prerelease ?? 'beta')
