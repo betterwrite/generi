@@ -142,6 +142,7 @@ export const setVersion = (
 
 		glob(['package.json', ...targets], {
 			expandDirectories: false,
+      fs
 		}).then(async (packages) => {
 			await versionBump({
 				files: packages,
