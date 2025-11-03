@@ -48,9 +48,10 @@ const setBasic = (commit: Commit, config: GeneriOptions) => {
 		result = commit.summary;
 	}
 
-	const sha = config?.repository && config?.repository !== 'https:'
-		? ` - [[${commit.sha}](${config.repository}/commit/${commit.sha})]`
-		: '';
+	const sha =
+		config?.repository && config?.repository !== 'https:'
+			? ` - [[${commit.sha}](${config.repository}/commit/${commit.sha})]`
+			: '';
 
 	if (config.commits === 'conventional-commits') {
 		if (!result[0] || !result[1]) return '';

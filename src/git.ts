@@ -3,13 +3,7 @@ import fs from 'fs-extra';
 import path from 'pathe';
 import { versionBump } from 'bumpp';
 import { glob } from 'tinyglobby';
-import type {
-	Commit,
-	GeneriConsole,
-	GitNewTag,
-	GitPrerelease,
-	Root,
-} from './types';
+import type { Commit, GeneriConsole, GitNewTag, GitPrerelease, Root } from './types';
 import { getRoot, setFile, getFile, getFileRoot } from './utils';
 import { isChangesForCommit } from './utils';
 import { destr } from 'destr';
