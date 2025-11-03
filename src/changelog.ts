@@ -48,7 +48,7 @@ const setBasic = (commit: Commit, config: GeneriOptions) => {
 		result = commit.summary;
 	}
 
-	const sha = config?.repository
+	const sha = config?.repository && config?.repository !== 'https:'
 		? ` - [[${commit.sha}](${config.repository}/commit/${commit.sha})]`
 		: '';
 

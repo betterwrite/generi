@@ -6,7 +6,6 @@ import { glob } from 'tinyglobby';
 import type {
 	Commit,
 	GeneriConsole,
-	GeneriOptions,
 	GitNewTag,
 	GitPrerelease,
 	Root,
@@ -161,7 +160,6 @@ export const setTag = (target: string, console: GeneriConsole) => {
 
 	if (tags.stdout?.includes(target)) {
 		console.error('Tag already exists!');
-		return;
 	}
 
 	const tag = execa.sync('git', ['tag', target]);
