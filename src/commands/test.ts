@@ -1,7 +1,12 @@
-import { getHeader } from '../console';
+import { getGeneri } from '../generi';
+import { revertAll } from '../git';
 
 export const setup = async () => {
-	getHeader('generi tests');
+	getGeneri().then(({ console }) => {
+		console.header('generi tests');
 
-	// code here
+		revertAll(console);
+
+		// code here
+	});
 };

@@ -1,39 +1,43 @@
-import { vice } from 'gradient-string';
-import { isSilent } from './generi';
-import { getPackage } from './utils';
 import consola from 'consola';
+import { vice } from 'gradient-string';
+import { GeneriConsole, GeneriOptions } from './types';
+import { getVersion } from './utils';
 
-export const getHeader = (command: string) => {
-	if (isSilent()) return;
+export const _console = (config: GeneriOptions): GeneriConsole => {
+	const header = (command: string) => {
+		if (config.silent) return;
 
-	const title = `Generi ${getPackage().version} | ${command}`;
-	consola.log(vice(title));
-	consola.log(vice('■'.repeat(title.length)));
-	consola.log('\n');
-};
+		const title = `Generi ${getVersion(config)} | ${command}`;
+		consola.log(vice(title));
+		consola.log(vice('■'.repeat(title.length)));
+		consola.log('\n');
+	};
 
-export const success = (content: string) => {
-	if (isSilent()) return;
+	const success = (content: string) => {
+		if (config.silent) return;
 
-	consola.success(vice(content));
-};
+		consola.success(vice(content));
+	};
 
-export const error = (content: string) => {
-	if (isSilent()) process.exit(1);
+	const error = (content: string) => {
+		if (config.silent) process.exit(1);
 
-	consola.fatal(vice(content));
+		consola.fatal(vice(content));
 
-	process.exit(1);
-};
+		process.exit(1);
+	};
 
-export const warning = (content: string) => {
-	if (isSilent()) return;
+	const warning = (content: string) => {
+		if (config.silent) return;
 
-	consola.warn(vice(content));
-};
+		consola.warn(vice(content));
+	};
 
-export const info = (content: string) => {
-	if (isSilent()) return;
+	const info = (content: string) => {
+		if (config.silent) return;
 
-	consola.info(vice(content));
+		consola.info(vice(content));
+	};
+
+	return { header, success, error, warning, info };
 };

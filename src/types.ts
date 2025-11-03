@@ -40,9 +40,17 @@ export interface LogOptions {
 	init?: boolean;
 }
 
+export interface GeneriConsole {
+	header: (command: string) => void;
+	success: (content: string) => void;
+	error: (content: string) => never;
+	warning: (content: string) => void;
+	info: (content: string) => void;
+}
+
 export interface GeneriOptions {
 	/* repository url for sha link generate. */
-	repository?: string;
+	repository: string;
 
 	/* Do not emit any message in console. */
 	silent: boolean;
@@ -69,13 +77,13 @@ export interface GeneriOptions {
 	exclude?: string[];
 
 	/* default 'beta' or 'alpha' argument for pre(patch|minor|major) log command */
-	prerelease?: GitPrerelease;
+	prerelease?: string;
 
 	/* package.json custom path. default option.cwd + ./package.json */
-	packagePath?: Maybe<string>;
+	packagePath: string;
 
 	/* lerna.json custom path. default option.cwd + ./lerna.json */
-	lernaPath?: Maybe<string>;
+	lernaPath: string;
 }
 
 export type GeneriConventionalCommits =
@@ -91,3 +99,8 @@ export type GeneriConventionalCommits =
 	| 'test';
 
 export type GeneriEmoticon = [GeneriConventionalCommits, string];
+
+export interface Root {
+	config: GeneriOptions;
+	console: GeneriConsole;
+}

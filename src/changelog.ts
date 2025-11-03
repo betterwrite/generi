@@ -1,8 +1,6 @@
-import { success } from './console';
 import { commits, isTagCommit, setCommit, getTagCommit } from './git';
-import { Commit, GeneriEmoticon } from './types';
+import { Commit, GeneriEmoticon, GeneriOptions, Root } from './types';
 import { setChangelog } from './utils';
-import { getGeneriConfig } from './generi';
 import conventional from './defines/conventional-commits.json';
 
 const getEmoji = (str: string): string => {
@@ -38,11 +36,10 @@ const setSubHeader = (commit: Commit) => {
 	return '\n### ' + v + '\n\n';
 };
 
-const setBasic = (commit: Commit) => {
-	const generi = getGeneriConfig();
+const setBasic = (commit: Commit, config: GeneriOptions) => {
 	let result: string[] | string;
 
-	if (generi.commits === 'conventional-commits') {
+	if (config.commits === 'conventional-commits') {
 		result = commit.summary
 			.split(/:(.+)/)
 			.filter((part) => part)
@@ -51,11 +48,11 @@ const setBasic = (commit: Commit) => {
 		result = commit.summary;
 	}
 
-	const sha = generi?.repository
-		? ` - [[${commit.sha}](${generi.repository}/commit/${commit.sha})]`
+	const sha = config?.repository
+		? ` - [[${commit.sha}](${config.repository}/commit/${commit.sha})]`
 		: '';
 
-	if (generi.commits === 'conventional-commits') {
+	if (config.commits === 'conventional-commits') {
 		if (!result[0] || !result[1]) return '';
 
 		return (
@@ -87,8 +84,7 @@ export const setActuallyTag = (tag: string) => {
 	});
 };
 
-export const createChangelog = (tag: string) => {
-	const config = getGeneriConfig();
+export const createChangelog = (tag: string, { config, console }: Root) => {
 	const exclude = config?.exclude ?? [' typo'];
 
 	let changelog = getChangelogHeader();
@@ -105,12 +101,12 @@ export const createChangelog = (tag: string) => {
 		if (!isConventionalCommit(commit) && config.commits === 'conventional-commits')
 			return;
 
-		changelog += setBasic(commit);
+		changelog += setBasic(commit, config);
 	});
 
 	setChangelog(changelog);
 
-	setCommit(config.tag ? tag : 'chore(generi): generate changelog.md');
+	setCommit(config.tag ? tag : 'chore(generi): generate changelog.md', true, console);
 
-	success('Generate CHANGELOG.md');
+	console.success('Generate CHANGELOG.md');
 };

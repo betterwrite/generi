@@ -1,8 +1,7 @@
-import { warning } from './console';
-import { GitNewTagOptions } from './types';
+import { GeneriConsole, GitNewTagOptions } from './types';
 import { isPrerelease } from './utils';
 
-export const nextTag = (options: GitNewTagOptions) => {
+export const nextTag = (options: GitNewTagOptions, console?: GeneriConsole) => {
 	let [major, minor, patch, prereleaseName, prereleaseValue]: (string | number)[] =
 		options.last.replace('v', '').split(/[.-]/);
 
@@ -16,7 +15,7 @@ export const nextTag = (options: GitNewTagOptions) => {
 		prereleaseValue &&
 		!options.last.includes(prereleaseName)
 	) {
-		warning(
+		console?.warning(
 			'You are executing a pre(patch|minor|major) command of the same category. This approach is not recommended and may have an unexpected result.'
 		);
 	}

@@ -1,8 +1,10 @@
-import { getHeader } from '../console';
+import { getGeneri } from '../generi';
 import { revertAll } from '../git';
 
 export const setup = () => {
-	getHeader('generi revert');
+	getGeneri().then(({ console }) => {
+		console.header('generi revert');
 
-	revertAll();
+		revertAll(console);
+	});
 };

@@ -1,97 +1,98 @@
 import { createChangelog } from '../changelog';
-import { GitNewTag, LogOptions } from '../types';
+import type { GeneriConsole, GitNewTag, GitPrerelease, LogOptions } from '../types';
 import { lastTag, setVersion, setTag, newCommits, isValidTag, pushCommits } from '../git';
-import { success, error, getHeader } from '../console';
-import {
-	existsConfig,
-	getFile,
-	getLernaRoot,
-	getPackageRoot,
-	isPrerelease,
-} from '../utils';
-import { getGeneriConfig } from '../generi';
+import { exists, existsConfig, getFile, getFileRoot, isPrerelease } from '../utils';
+import { getGeneri } from '../generi';
 import { publish } from '../npm';
 import { nextTag } from '../tag';
 import { release } from '../release';
 import { destr } from 'destr';
 
-const validateLog = (tag: GitNewTag) => {
+const validateLog = (tag: GitNewTag, console: GeneriConsole) => {
 	const commits = newCommits();
 
 	if (!existsConfig()) {
-		error('Generi not exists! Use <generi init> command instead.');
-		return false;
+		console.error('Generi not exists! Use <generi init> command instead.');
 	}
 
 	if (commits.length < 1) {
-		error('There are no valid commits to create a new release.');
-		return false;
+		console.error('There are no valid commits to create a new release.');
 	}
 
 	if (!isValidTag(tag)) {
-		error('Invalid Tag. Use patch|prepatch|minor|preminor|major|premajor');
-		return false;
+		console.error('Invalid Tag. Use patch|prepatch|minor|preminor|major|premajor');
 	}
 
 	return true;
 };
 
 export const setup = (tag: GitNewTag, options: LogOptions) => {
-	const config = getGeneriConfig();
+	getGeneri().then(({ config, console }) => {
+		if (!tag) {
+			console.error('Insert valid git tag.');
 
-	if (!tag) {
-		error('Insert valid git tag.');
+			return;
+		}
 
-		return;
-	}
+		if (options.header) console.header(`generi log ${tag}`);
 
-	if (options.header) getHeader(`generi log ${tag}`);
+		if (!validateLog(tag, console)) return;
 
-	if (!validateLog(tag)) return;
+		if (exists('./generi.json'))
+			console.warning(
+				'generi.json file is not supported in v2. New format in documentation.'
+			);
 
-	const lerna = getFile(getLernaRoot());
-	const pkg = getFile(getPackageRoot());
+		if (!exists('./generi.config.ts') || !exists('./generi.config.js'))
+			console.warning('generi.config was not found, default config loaded.');
 
-	if (!lerna && !pkg) {
-		error(
-			'No configuration file was found. If you use a different path for <lerna.json> or <package.json>, look in the documentation on our github for the packagePath or lernaPath option.'
+		const lerna = getFile(getFileRoot(config.lernaPath));
+		const pkg = getFile(getFileRoot(config.packagePath));
+
+		if (!lerna && !pkg) {
+			console.error(
+				'No configuration file was found. If you use a different path for <lerna.json> or <package.json>, look in the documentation on our github for the packagePath or lernaPath option.'
+			);
+		}
+
+		let target = lerna ? lerna : pkg;
+
+		const version = destr<Record<string, any>>(target)?.version;
+		if (!version) console.error('version in lerna.json or package.json not found!');
+		const last = 'v' + version;
+
+		const prerelease = isPrerelease(tag)
+			? ((options?.git?.prerelease ?? config.prerelease ?? 'beta') as GitPrerelease)
+			: undefined;
+
+		const next = nextTag(
+			{
+				last,
+				tag,
+				prerelease,
+			},
+			console
 		);
-	}
 
-	let target = lerna ? lerna : pkg;
+		if (!next) {
+			console.error('Unable to create a required tag!');
+			return;
+		}
 
-	const version = destr<Record<string, any>>(target)?.version;
-	if (!version) error('version in lerna.json or package.json not found!');
-	const last = 'v' + version;
+		if (config.version) {
+			console.success(`${last} to ${next} (${tag.toUpperCase()})`);
 
-	const prerelease = isPrerelease(tag)
-		? (options?.git?.prerelease ?? config.prerelease ?? 'beta')
-		: undefined;
+			setVersion(next, { console, config }, tag, prerelease);
+		}
 
-	const next = nextTag({
-		last,
-		tag,
-		prerelease,
+		createChangelog(!config.version ? lastTag() : next, { config, console });
+
+		if (config.tag && (!options.init || !lerna)) setTag(next, console);
+
+		pushCommits({ config, console });
+
+		if (config?.release) release(next, true, console);
+
+		if (config?.publish) publish(next, console, lerna, next);
 	});
-
-	if (!next) {
-		error('Unable to create a required tag!');
-		return;
-	}
-
-	if (config.version) {
-		success(`${last} to ${next} (${tag.toUpperCase()})`);
-
-		setVersion(next, tag, prerelease);
-	}
-
-	createChangelog(!config.version ? lastTag() : next);
-
-	if (config.tag && (!options.init || !lerna)) setTag(next);
-
-	pushCommits();
-
-	if (config?.release) release(next, true);
-
-	if (config?.publish) publish(next, lerna, next);
 };

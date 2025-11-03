@@ -1,13 +1,17 @@
 import execa from 'execa';
-import { error, success, warning } from './console';
+import { GeneriConsole } from './types';
 
-export const release = (tag: string, autoNotes: boolean = true) => {
+export const release = (
+	tag: string,
+	autoNotes: boolean = true,
+	console: GeneriConsole
+) => {
 	try {
 		execa.sync('gh');
 	} catch (e) {
-		error('Github CLI https://cli.github.com/ <gh> was not found in this system.');
-
-		return;
+		console.error(
+			'Github CLI https://cli.github.com/ <gh> was not found in this system.'
+		);
 	}
 
 	try {
@@ -16,7 +20,9 @@ export const release = (tag: string, autoNotes: boolean = true) => {
 		if (!repo.stdout?.includes('https://github.com'))
 			throw Error('generi release supports only github repositories');
 	} catch (e) {
-		warning('generi release supports only github repositories. Ignoring this step.');
+		console.warning(
+			'generi release supports only github repositories. Ignoring this step.'
+		);
 
 		return;
 	}
@@ -36,10 +42,10 @@ export const release = (tag: string, autoNotes: boolean = true) => {
 			...generateNotes,
 		]);
 	} catch (e) {
-		warning('Unable to release this version!');
+		console.warning('Unable to release this version!');
 
 		return;
 	}
 
-	success(`Version ${tag} Has Been Released!`);
+	console.success(`Version ${tag} Has Been Released!`);
 };

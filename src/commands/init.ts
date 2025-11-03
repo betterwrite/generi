@@ -1,51 +1,54 @@
-import { getHeader, error } from '../console';
+import * as log from './log';
 import { isGit, setVersion, setTag, initGit, setCommit, existsTag } from '../git';
 import { createChangelog } from '../changelog';
-import { setGeneriConfig, getGeneriConfig, pkgConfig, lernaConfig } from '../generi';
-import * as log from './log';
-import generiDefault from '../defines/generi-default.json';
-import { getVersion, isChangesForCommit } from '../utils';
+import { getGeneri } from '../generi';
+import { exists, getVersion, isChangesForCommit } from '../utils';
 
 export const setup = () => {
-	const git = isGit();
-	let version = getVersion();
+	getGeneri().then(({ config, console }) => {
+		const git = isGit();
+		let version = getVersion(config);
 
-	getHeader('generi init');
+		console.header('generi init');
 
-	if (getGeneriConfig()) error('<generi.json> exists!');
+		if (exists('./generi.json'))
+			console.warning(
+				'generi.json file is not supported in v2. New format in documentation.'
+			);
 
-	if (!git) initGit();
+		if (!exists('./generi.config.ts') || !exists('./generi.config.js'))
+			console.warning('generi.config was not found, default config loaded.');
 
-	isChangesForCommit(git);
+		if (!git) initGit(console);
 
-	// @ts-expect-error
-	setGeneriConfig(generiDefault);
+		isChangesForCommit(git, console);
 
-	if (!existsTag()) {
-		if (version) setTag(version);
-		else {
-			version = 'v0.1.0';
-			setVersion(version, 'patch');
+		if (!existsTag()) {
+			if (version) setTag(version, console);
+			else {
+				version = 'v0.1.0';
+				setVersion(version, { config, console }, 'patch');
+			}
 		}
-	}
 
-	if (git) {
-		setCommit('chore: generate generi.json');
+		if (git) {
+			setCommit('chore: generate generi.json', true, console);
 
-		log.setup('patch', { header: true, git: { prerelease: undefined } });
+			log.setup('patch', { header: true, git: { prerelease: undefined } });
 
-		return;
-	}
+			return;
+		}
 
-	if (!version) {
-		error(`${pkgConfig} or ${lernaConfig} it was not found.`);
+		if (!version) {
+			console.error(`${config.packagePath} or ${config.lernaPath} it was not found.`);
 
-		return;
-	}
+			return;
+		}
 
-	setVersion(version, 'minor');
+		setVersion(version, { config, console }, 'minor');
 
-	createChangelog(version);
+		createChangelog(version, { config, console });
 
-	setTag(version);
+		setTag(version, console);
+	});
 };

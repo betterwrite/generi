@@ -1,4 +1,5 @@
 {
+	"repository": "https",
 	"silent": false,
 	"commits": "none",
 	"tag": true,
@@ -8,6 +9,6 @@
 	"release": false,
 	"exclude": [" typo"],
 	"prerelease": "beta",
-	"packagePath": false,
-	"lernaPath": false
+	"packagePath": "package.json",
+	"lernaPath": "lerna.json"
 }

@@ -1,25 +1,21 @@
-import { GeneriOptions } from './types';
-import { getConfigRoot, setFile, getFile } from './utils';
-import { success } from './console';
-import { destr } from 'destr';
+import { loadConfig } from 'c12';
+import { getRemoteOrigin } from './git';
+import defaultConfig from './defines/generi-default.json';
+import { _console } from './console';
 
-export const getGeneri = (): GeneriOptions => {
-	return destr<GeneriOptions>(getFile(getConfigRoot()));
-};
+export const getGeneri = async () => {
+	const { config } = await loadConfig({
+		name: 'generi',
+		rcFile: false,
+		envName: false,
+		defaultConfig,
+	});
 
-const config = getGeneri();
-export const getGeneriConfig = () => config;
+	try {
+		if (!config.repository) config.repository = getRemoteOrigin() || 'https:';
+	} catch (e) {
+		// TODO: target others repo url
+	}
 
-export const isSilent = () => config.silent;
-export const isTag = () => config.tag;
-export const isVersion = () => config.version;
-export const isConventionalCommits = () => config.commits === 'conventional-commits';
-
-export const pkgConfig = config?.packagePath || 'package.json';
-export const lernaConfig = config?.lernaPath || 'lerna.json';
-
-export const setGeneriConfig = (generi: GeneriOptions) => {
-	setFile(getConfigRoot(), generi);
-
-	success('Generate <generi.json>');
+	return { config, console: _console(config) };
 };

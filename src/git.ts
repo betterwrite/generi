@@ -3,10 +3,15 @@ import fs from 'fs-extra';
 import path from 'pathe';
 import { versionBump } from 'bumpp';
 import { glob } from 'tinyglobby';
-import { success, error, info } from './console';
-import type { Commit, GitNewTag, GitPrerelease } from './types';
-import { getRoot, setFile, getFile, getLernaRoot } from './utils';
-import { getGeneriConfig } from './generi';
+import type {
+	Commit,
+	GeneriConsole,
+	GeneriOptions,
+	GitNewTag,
+	GitPrerelease,
+	Root,
+} from './types';
+import { getRoot, setFile, getFile, getFileRoot } from './utils';
 import { isChangesForCommit } from './utils';
 import { destr } from 'destr';
 
@@ -53,7 +58,7 @@ export const lastTag = (): string => {
 		last = execa.sync('git', ['describe', '--abbrev=0', '--tags']);
 	} catch (e) {}
 	if (!last) {
-		error('Unable to fetch the last tag. First use the generi init command');
+		return '';
 	}
 
 	return last?.stdout || '';
@@ -91,15 +96,16 @@ export const getTagCommit = (commit: Commit) => {
 
 export const setVersion = (
 	target: string,
+	{ config, console }: Root,
 	tag: GitNewTag,
 	prerelease?: GitPrerelease
 ) => {
 	const normalize = target.substring(1);
-	let lerna = getFile(getLernaRoot());
+	let lerna = getFile(getFileRoot(config.lernaPath));
 
 	// monorepo with lerna
 	if (lerna) {
-		info(`Executing <lerna version ${tag}> command...`);
+		console.info(`Executing <lerna version ${tag}> command...`);
 
 		try {
 			const asPrerelease = prerelease ? ['--preid', prerelease] : [];
@@ -116,21 +122,23 @@ export const setVersion = (
 				'--force-publish',
 			]);
 		} catch (e) {
-			error(`Could not execute <lerna version ${tag}> command`);
+			console.error(`Could not execute <lerna version ${tag}> command`);
 		}
 
 		const lernaPrev = destr<Record<string, unknown>>(lerna);
-		const lernaPost = destr<Record<string, unknown>>(getFile(getLernaRoot()));
+		const lernaPost = destr<Record<string, unknown>>(
+			getFile(getFileRoot(config.lernaPath))
+		);
 
 		// if lerna version has no previous workspace changes, it does not execute any command to change the version.
 		if (lernaPrev.version === lernaPost.version) {
 			const _lerna = lernaPrev;
 			_lerna.version = normalize;
 
-			setFile(getLernaRoot(), _lerna);
+			setFile(getFileRoot(config.lernaPath), _lerna);
 		}
 
-		success('Set ' + target + ' Version In Lerna Monorepos!');
+		console.success('Set ' + target + ' Version In Lerna Monorepos!');
 	} else {
 		// TODO: custom pnpm-workspace.yaml packages list
 		glob(['package.json', './packages/*/package.json'], {
@@ -148,55 +156,55 @@ export const setVersion = (
 	}
 };
 
-export const setTag = (target: string) => {
+export const setTag = (target: string, console: GeneriConsole) => {
 	const tags = execa.sync('git', ['tag', '-n']);
 
 	if (tags.stdout?.includes(target)) {
-		error('Tag already exists!');
+		console.error('Tag already exists!');
 		return;
 	}
 
 	const tag = execa.sync('git', ['tag', target]);
 
 	if (!tag) {
-		error('Tag already exists!');
-		return;
+		console.error('Tag already exists!');
 	}
 
-	success(target + ' Git Tag');
+	console.success(target + ' Git Tag');
 };
 
-export const initGit = () => {
+export const initGit = (console: GeneriConsole) => {
 	const init = execa.sync('git', ['init']);
 
 	if (!init) {
-		error('Git is not installed.');
-		return;
+		console.error('Git is not installed.');
 	}
 
-	success('Initialized Git Project');
+	console.success('Initialized Git Project');
 
 	execa.sync('git', ['add', '-A']);
 
-	success('Added All Staged Changes');
+	console.success('Added All Staged Changes');
 
 	execa.sync('git', ['commit', '-m', 'chore(changelog): initial content']);
 
-	success('Commit Initial Content With Message: chore(changelog): initial content');
+	console.success(
+		'Commit Initial Content With Message: chore(changelog): initial content'
+	);
 };
 
-export const setCommit = (message: string, log = true) => {
+export const setCommit = (message: string, log = true, console: GeneriConsole) => {
 	execa.sync('git', ['add', '-A']);
 
 	execa.sync('git', ['commit', '-m', message]);
 
-	if (log) success('Commit With Message: ' + message);
+	if (log) console.success('Commit With Message: ' + message);
 };
 
-export const pushCommits = () => {
-	if (!getGeneriConfig().push) return;
+export const pushCommits = ({ config, console }: Root) => {
+	if (!config.push) return;
 
-	info(`Pushing...`);
+	console.info(`Pushing...`);
 
 	const target = execa.sync('git', ['branch', '--show']);
 
@@ -204,16 +212,16 @@ export const pushCommits = () => {
 
 	execa.sync('git', ['push', '--tags']);
 
-	success('Success in Push!');
+	console.success('Success in Push!');
 };
 
-export const revertAll = () => {
-	if (!isGit()) error('This command just rolls back changes in git.');
+export const revertAll = (console: GeneriConsole) => {
+	if (!isGit()) console.error('This command just rolls back changes in git.');
 
-	isChangesForCommit(isGit());
+	isChangesForCommit(isGit(), console);
 
 	if (!verifyExistentRemote())
-		error(
+		console.error(
 			'No remotes were found! Use git remote add origin <github|gitlab|gitbucket repository> instead.'
 		);
 
@@ -224,9 +232,8 @@ export const revertAll = () => {
 	execa.sync('git', ['tag', '--delete', tag]);
 
 	execa.sync('git', ['checkout', '.']);
-	``;
 
-	success(`Success in revert ${tag} tag!`);
+	console.success(`Success in revert ${tag} tag!`);
 };
 
 export const verifyExistentRemote = () => {
@@ -254,4 +261,11 @@ export const isCleanChanges = (): boolean => {
 	const changes = execa.sync('git', ['diff', 'HEAD']);
 
 	return !changes.stdout;
+};
+
+export const getRemoteOrigin = () => {
+	const link =
+		execa.sync('git', ['config', '--get', 'remote.origin.url'])?.stdout || undefined;
+
+	return link;
 };

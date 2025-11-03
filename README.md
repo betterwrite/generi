@@ -73,7 +73,43 @@ generi.init().then(async () => {
 })
 ```
 
-### generi.json
+### Config
+
+#### v1 (generi.json)
+
+```json
+{
+	"silent": false,
+	"commits": "none",
+	"tag": true,
+	"version": true,
+	"push": false,
+	"publish": false,
+	"release": false,
+	"exclude": [" typo"],
+	"prerelease": "beta",
+	"packagePath": "package.json",
+	"lernaPath": "lerna.json"
+}
+```
+
+#### v2 (generi.config.ts)
+
+```ts
+export default {
+  silent: false,
+	commits: "none",
+	tag: true,
+	version: true,
+	push: false,
+	publish: false,
+	release: false,
+	exclude: [" typo"],
+	prerelease: "beta",
+	packagePath: "package.json",
+	lernaPath: "lerna.json"
+};
+```
 
 ##### `silent` Default: `false`
 

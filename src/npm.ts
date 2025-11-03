@@ -1,10 +1,15 @@
 import execa from 'execa';
-import { info, success, error } from './console';
 import { getManager } from './monorepo';
 import { lastTag } from './git';
+import { GeneriConsole } from './types';
 
-export const publish = (target: string, lerna?: boolean, tag: string = lastTag()) => {
-	info('Publishing...');
+export const publish = (
+	target: string,
+	console: GeneriConsole,
+	lerna?: boolean,
+	tag: string = lastTag()
+) => {
+	console.info('Publishing...');
 
 	if (lerna) {
 		try {
@@ -16,7 +21,7 @@ export const publish = (target: string, lerna?: boolean, tag: string = lastTag()
 				'--force-publish',
 			]);
 		} catch (e) {
-			error('Unable to publish the package in NPM with <lerna publish> command!');
+			console.error('Unable to publish the package in NPM with <lerna publish> command!');
 		}
 	} else {
 		try {
@@ -34,9 +39,9 @@ export const publish = (target: string, lerna?: boolean, tag: string = lastTag()
 					])
 				: execa.sync('npm', ['publish']);
 		} catch (e) {
-			error('Unable to publish the package in NPM!');
+			console.error('Unable to publish the package in NPM!');
 		}
 	}
 
-	success(`Version ${target} Has Been Published!`);
+	console.success(`Version ${target} Has Been Published!`);
 };
