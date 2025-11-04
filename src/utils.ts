@@ -20,18 +20,17 @@ export const getRootPath = () => {
 };
 
 export const getVersion = (config: GeneriOptions): string | undefined => {
-	const pkg = fs.existsSync(config.packagePath)
-		? destr<Record<string, any>>(
-				fs.readFileSync(path.resolve(process.cwd(), config.packagePath))
-			)
+	const pkgPath = path.resolve(process.cwd(), config.packagePath);
+	const lernaPath = path.resolve(process.cwd(), config.lernaPath);
+
+	const pkg = fs.existsSync(pkgPath)
+		? destr<Record<string, any>>(fs.readFileSync(pkgPath))
 		: {};
 
 	if (pkg?.version) return `v${pkg.version}`;
 
-	const lerna = fs.existsSync(config.lernaPath)
-		? destr<Record<string, any>>(
-				fs.readFileSync(path.resolve(process.cwd(), config.lernaPath))
-			)
+	const lerna = fs.existsSync(lernaPath)
+		? destr<Record<string, any>>(fs.readFileSync(lernaPath))
 		: {};
 
 	return lerna?.version ? `v${lerna.version}` : undefined;
