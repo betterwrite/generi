@@ -1,6 +1,7 @@
 export default {
+  repository: "https://github.com/betterwrite/generi",
   silent: false,
-	commits: "none",
+	commits: "conventional-commits",
 	tag: true,
 	version: true,
 	push: true,
