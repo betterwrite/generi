@@ -1,13 +1,13 @@
 import consola from 'consola';
 import { vice } from 'gradient-string';
 import { GeneriConsole, GeneriOptions } from './types';
-import { getVersion } from './utils';
+import pkg from '../package.json'
 
 export const _console = (config: GeneriOptions): GeneriConsole => {
 	const header = (command: string) => {
 		if (config.silent) return;
 
-		const title = `Generi ${getVersion(config)} | ${command}`;
+		const title = `Generi ${pkg.version} | ${command}`;
 		consola.log(vice(title));
 		consola.log(vice('■'.repeat(title.length)));
 		consola.log('\n');
