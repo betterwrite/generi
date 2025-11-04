@@ -16,9 +16,9 @@ export const getGeneri = async () => {
 	try {
 		if (
 			config.repository &&
-			(config.repository === 'force' || config.repository !== 'ignore')
+			(config.repository === 'force' || config.repository === 'ignore')
 		) {
-			const remote = getRemoteOrigin();
+			const remote = config.repository === 'ignore' ? 'ignore' : getRemoteOrigin();
 
 			config.repository = remote || 'ignore';
 
