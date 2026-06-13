@@ -10,5 +10,6 @@
 	"exclude": [" typo"],
 	"prerelease": "beta",
 	"packagePath": "package.json",
-	"lernaPath": "lerna.json"
+	"lernaPath": "lerna.json",
+	"cargoPath": "Cargo.toml"
 }

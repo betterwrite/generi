@@ -47,6 +47,16 @@ pnpm major   # build + generi log major
 ### Git operations
 `src/git.ts` — all git interaction via **execa** sync calls. `commits()` parses `git log --pretty=hash<%h> ref<%D> message<%s> date<%cd>`. `newCommits()` returns only commits since the last tag.
 
+### Cargo.toml support
+
+`src/cargo.ts` — TOML read/write using **smol-toml**. Detects two layouts:
+- **Single-crate**: `[package] version = "..."` at the root
+- **Workspace**: `[workspace.package] version = "..."` at the root (member crates use `version.workspace = true`)
+
+`readCargo(path)` returns the parsed TOML object or `false` if the file doesn't exist. `getCargoVersion(path)` extracts the version string. `setCargoVersion(path, version)` writes the new version back, preserving the rest of the file via stringify round-trip.
+
+Detection priority in `commands/log.ts`: lerna.json → package.json → Cargo.toml. `setVersion` in `git.ts` shortcuts to the Cargo path when neither `package.json` nor `lerna.json` is present.
+
 ### Monorepo detection
 `src/monorepo.ts` — detects package manager (pnpm/yarn/bun/npm) and whether lerna/nx is present. PNPM workspace packages are globbed from `pnpm-workspace.yaml`.
 
@@ -73,3 +83,4 @@ Key options users put in `generi.config.ts`:
 | `exclude` | `[" typo"]` | Commit summaries containing these strings are skipped |
 | `packagePath` | `"package.json"` | Custom path to package.json |
 | `lernaPath` | `"lerna.json"` | Custom path to lerna.json |
+| `cargoPath` | `"Cargo.toml"` | Custom path to Cargo.toml |

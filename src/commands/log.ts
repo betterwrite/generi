@@ -7,6 +7,7 @@ import { publish } from '../npm';
 import { nextTag } from '../tag';
 import { release } from '../release';
 import { destr } from 'destr';
+import { getCargoVersion, readCargo } from '../cargo';
 
 const validateLog = (tag: GitNewTag, console: GeneriConsole) => {
 	const commits = newCommits();
@@ -44,17 +45,25 @@ export const setup = (tag: GitNewTag, options: LogOptions) => {
 
 		const lerna = getFile(getFileRoot(config.lernaPath));
 		const pkg = getFile(getFileRoot(config.packagePath));
+		const cargo = readCargo(config.cargoPath);
 
-		if (!lerna && !pkg) {
+		if (!lerna && !pkg && !cargo) {
 			console.error(
-				'No configuration file was found. If you use a different path for <lerna.json> or <package.json>, look in the documentation on our github for the packagePath or lernaPath option.'
+				'No configuration file was found. If you use a different path for <lerna.json>, <package.json> or <Cargo.toml>, look in the documentation on our github for the packagePath, lernaPath or cargoPath option.'
 			);
 		}
 
-		let target = lerna ? lerna : pkg;
+		let version: string | undefined;
 
-		const version = destr<Record<string, any>>(target)?.version;
-		if (!version) console.error('version in lerna.json or package.json not found!');
+		if (lerna || pkg) {
+			const target = lerna ? lerna : pkg;
+			version = destr<Record<string, any>>(target)?.version;
+		} else if (cargo) {
+			version = getCargoVersion(config.cargoPath);
+		}
+
+		if (!version)
+			console.error('version in lerna.json, package.json or Cargo.toml not found!');
 		const last = 'v' + version;
 
 		const prerelease = isPrerelease(tag)

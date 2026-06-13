@@ -5,6 +5,7 @@ import { isCleanChanges } from './git';
 import { GeneriConsole, GeneriOptions, GitNewTag } from './types';
 import { destr } from 'destr';
 import { existsSync } from 'fs-extra';
+import { getCargoVersion } from './cargo';
 
 export const getRoot = (): string => {
 	// TODO: dynamic cwd
@@ -33,7 +34,10 @@ export const getVersion = (config: GeneriOptions): string | undefined => {
 		? destr<Record<string, any>>(fs.readFileSync(lernaPath))
 		: {};
 
-	return lerna?.version ? `v${lerna.version}` : undefined;
+	if (lerna?.version) return `v${lerna.version}`;
+
+	const cargoVersion = getCargoVersion(config.cargoPath);
+	return cargoVersion ? `v${cargoVersion}` : undefined;
 };
 
 export const getChangelogRoot = (name: string = 'CHANGELOG.md') => {

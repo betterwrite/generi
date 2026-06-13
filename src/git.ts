@@ -4,10 +4,11 @@ import path from 'pathe';
 import { versionBump } from 'bumpp';
 import { glob } from 'tinyglobby';
 import type { Commit, GeneriConsole, GitNewTag, GitPrerelease, Root } from './types';
-import { getRoot, setFile, getFile, getFileRoot } from './utils';
+import { getRoot, setFile, getFile, getFileRoot, exists } from './utils';
 import { isChangesForCommit } from './utils';
 import { destr } from 'destr';
 import { getPNPMWorkspace } from './monorepo';
+import { readCargo, setCargoVersion } from './cargo';
 
 export const isGit = () => {
 	return fs.existsSync(path.resolve(getRoot(), '.git'));
@@ -95,6 +96,14 @@ export const setVersion = async (
 	prerelease?: GitPrerelease
 ) => {
 	const normalize = target.substring(1);
+
+	// Cargo.toml: update and return early when no lerna/package.json present
+	if (!exists(config.packagePath) && !exists(config.lernaPath) && readCargo(config.cargoPath)) {
+		setCargoVersion(config.cargoPath, normalize);
+		console.success('Set ' + target + ' Version In Cargo.toml!');
+		return;
+	}
+
 	let lerna = getFile(getFileRoot(config.lernaPath));
 
 	// monorepo with lerna

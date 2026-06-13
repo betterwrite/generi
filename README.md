@@ -156,3 +156,7 @@ A custom package.json path. Example: ./foo/bar/package.json
 #### `lernaPath` Default `lerna.json`
 
 A custom lerna.json path. Example: ./foo/bar/lerna.json
+
+#### `cargoPath` Default `Cargo.toml`
+
+A custom Cargo.toml path. Example: ./foo/bar/Cargo.toml

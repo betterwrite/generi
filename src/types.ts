@@ -84,6 +84,9 @@ export interface GeneriOptions {
 
 	/* lerna.json custom path. default option.cwd + ./lerna.json */
 	lernaPath: string;
+
+	/* Cargo.toml custom path. default option.cwd + ./Cargo.toml */
+	cargoPath: string;
 }
 
 export type GeneriConventionalCommits =
